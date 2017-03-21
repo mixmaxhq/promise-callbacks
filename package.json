@@ -1,0 +1,29 @@
+{
+  "name": "@mixmaxhq/promise-utils",
+  "version": "0.1.0",
+  "description": "Utilities to help convert a callback-using codebase to promises.",
+  "engines": {
+    "node": ">=7.6.0"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jasmine",
+    "example": "node ./example/app.js"
+  },
+  "keywords": [
+    "callbacks",
+    "promises",
+    "async",
+    "await",
+    "es2017",
+    "es8"
+  ],
+  "author": "Jeff Wear <jeff@mixmax.com> (https://mixmax.com)",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint-config-mixmax": "^0.2.0",
+    "express": "^4.15.2",
+    "jasmine": "^2.5.3",
+    "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node"
+  }
+}
