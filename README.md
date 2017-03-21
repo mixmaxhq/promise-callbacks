@@ -97,7 +97,7 @@ to start it.
 
 ## Shout-outs
 
-`sync` is inspired by / named after [`synchronize.js`](http://alexeypetrushin.github.io/synchronize/docs/index.html), a wonderful library that was Mixmax's [coroutine of choice](https://mixmax.com/blog/node-fibers-using-synchronize-js)
+`sync` is inspired by / named after [`synchronize.js`](http://alexeypetrushin.github.io/synchronize/docs/index.html), a wonderful library that was [Mixmax](https://mixmax.com/)'s [coroutine of choice](https://mixmax.com/blog/node-fibers-using-synchronize-js)
 prior to Node adding support for `async`/`await`.
 
 `asCallback` is inspired by [Bluebird](http://bluebirdjs.com/docs/api/ascallback.html).
