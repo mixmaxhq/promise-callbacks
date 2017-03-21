@@ -44,7 +44,7 @@ async function foo() {
 ```
 
 What happened there is that `sync.set()` stored a promise and returned a Node errback, which when
-called resolved that promise. `sync.get() retrieved the promise so that you could `await` it.
+called resolved that promise. `sync.get()` retrieved the promise so that you could `await` it.
 
 `sync.get` doesn't take any arguments&mdash;putting the call to `respondWithDelay` "inside" it
 is just syntax sugar that works because JS interpreters evaluate the arguments to functions
