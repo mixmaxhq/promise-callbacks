@@ -1,5 +1,5 @@
 {
-  "name": "@mixmaxhq/promise-utils",
+  "name": "promise-callbacks",
   "version": "0.1.0",
   "description": "Utilities to help convert a callback-using codebase to promises.",
   "engines": {
