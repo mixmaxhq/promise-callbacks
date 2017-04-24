@@ -21,6 +21,10 @@ in the relatively near future. In the future, there's `promise-callbacks` to kee
 ## Installation
 
 ```sh
+yarn add promise-callbacks
+```
+or
+```sh
 npm install promise-callbacks --save
 ```
 
@@ -92,7 +96,7 @@ Promise.resolve(true).asCallback((err, res) => {
 
 ## Real-world example
 
-`example/app.js` demonstrate these APIs' use in the context of a web server. Do `npm run example`
+`example/app.js` demonstrate these APIs' use in the context of a web server. Do `yarn run example`
 to start it.
 
 ## Shout-outs
