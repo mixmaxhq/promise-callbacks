@@ -16,7 +16,7 @@ monkey-patching ([trace this](https://github.com/petkaantonov/bluebird/blob/3746
 Hopefully these 3rd-party libraries will get [their](https://github.com/nodejs/node/pull/5020)
 [acts](https://github.com/request/request/issues/1935#issuecomment-287660358)
 [together](https://github.com/mafintosh/mongojs/issues/324#issuecomment-287591550)
-in the relatively near future. In the future, there's `promise-callbacks` to keep it simple.
+in the relatively near future. In the meantime, there's `promise-callbacks` to keep it simple.
 
 ## Installation
 
