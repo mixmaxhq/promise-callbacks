@@ -4,14 +4,6 @@ const deferred = require('../src/deferred');
 // is intended to be used. But we're not testing how `await` works per se--we could
 // test the promise directly.
 describe('deferred', function() {
-  function ret(done) {
-    process.nextTick(done, null, 'hello');
-  }
-
-  function thr(done) {
-    process.nextTick(done, new Error('boo'));
-  }
-
   it('lets you handle callback errors using promises', async function() {
     let err;
     const promise = deferred();
@@ -19,7 +11,7 @@ describe('deferred', function() {
     // We can't use `expect...toThrowError` because `expect` takes a function there, which will have
     // to be an `async` function to use `await`, which means it won't synchronously throw.
     try {
-      thr(promise.defer());
+      process.nextTick(promise.defer(), new Error('boo'));
       await promise;
     } catch(e) {
       err = e;
@@ -31,8 +23,26 @@ describe('deferred', function() {
 
   it('lets you handle callback results using promises', async function() {
     const promise = deferred();
-    ret(promise.defer());
+    process.nextTick(promise.defer(), null, 'hello');
     expect(await promise).toBe('hello');
+  });
+
+  it('should ignore extra values', async function() {
+    const promise = deferred();
+    process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
+    expect(await promise).toBe('v1');
+  });
+
+  it('should handle multiple values as an array', async function() {
+    const promise = deferred({variadic: true});
+    process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
+    expect(await promise).toEqual(['v1', 'v2', 'v3']);
+  });
+
+  it('should handle multiple values as an object', async function() {
+    const promise = deferred({variadic: ['v1', 'v2', 'v3']});
+    process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
+    expect(await promise).toEqual({v1: 'v1', v2: 'v2', v3: 'v3'});
   });
 
   it('throws if you call `defer` twice', function() {
