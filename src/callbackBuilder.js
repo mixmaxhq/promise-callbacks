@@ -8,8 +8,7 @@ function callbackBuilder(resolve, reject, {varadic}) {
 
   return function callback(err, ...values) {
     if (called) {
-      if (err) throw err;
-      return;
+      throw new Error('the deferred callback has already been called');
     }
 
     called = true;
