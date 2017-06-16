@@ -1,6 +1,6 @@
 {
   "name": "promise-callbacks",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Utilities to help convert a callback-using codebase to promises.",
   "engines": {
     "node": ">=7.6.0"
@@ -19,6 +19,7 @@
     "es8"
   ],
   "author": "Jeff Wear <jeff@mixmax.com> (https://mixmax.com)",
+  "contributors": ["Eli Skeggs <eli@mixmax.com> (https://eliskeggs.com)"],
   "license": "MIT",
   "devDependencies": {
     "eslint-config-mixmax": "^0.2.0",
