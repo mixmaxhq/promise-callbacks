@@ -1,3 +1,8 @@
+/**
+ * Build a callback for the given promise resolve/reject functions.
+ *
+ * @param {Boolean|String[]} options.varadic See the documentation for promisify.
+ */
 function callbackBuilder(resolve, reject, {varadic}) {
   let called = false;
 
