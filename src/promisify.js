@@ -33,7 +33,8 @@ const callbackBuilder = require('./callbackBuilder');
  *   more than one value - by default, promisify will only resolve the promise with the first value.
  *     false    - only resolve the promise with the first value, default behavior
  *     true     - resolve the promise with an array containing the varadic arguments
- *     String[] - the names of the arguments, which will be used to create an object of values.
+ *     String[] - the names of the arguments to the callback, which will be used to create an object
+ *       of values.
  * @return {Function: Promise} The promisified function.
  */
 function promisify(orig, options = {}) {
