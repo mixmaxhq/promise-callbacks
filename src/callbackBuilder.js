@@ -1,9 +1,9 @@
 /**
  * Build a callback for the given promise resolve/reject functions.
  *
- * @param {Boolean|String[]} options.varadic See the documentation for promisify.
+ * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  */
-function callbackBuilder(resolve, reject, {varadic}) {
+function callbackBuilder(resolve, reject, {variadic}) {
   let called = false;
 
   return function callback(err, ...values) {
@@ -15,14 +15,14 @@ function callbackBuilder(resolve, reject, {varadic}) {
 
     if (err) {
       reject(err);
-    } else if (Array.isArray(varadic)) {
+    } else if (Array.isArray(variadic)) {
       const obj = {};
-      for (let i = 0; i < varadic.length; i++) {
-        obj[varadic[i]] = values[i];
+      for (let i = 0; i < variadic.length; i++) {
+        obj[variadic[i]] = values[i];
       }
       resolve(obj);
     } else {
-      resolve(varadic ? values : values[0]);
+      resolve(variadic ? values : values[0]);
     }
   };
 }

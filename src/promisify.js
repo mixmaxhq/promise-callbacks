@@ -29,10 +29,10 @@ const callbackBuilder = require('./callbackBuilder');
  * Promisify the given function.
  *
  * @param {Function} orig The function to promisify.
- * @param {Boolean|String[]} options.varadic The varadic option informs how promisify will handle
+ * @param {Boolean|String[]} options.variadic The variadic option informs how promisify will handle
  *   more than one value - by default, promisify will only resolve the promise with the first value.
  *     false    - only resolve the promise with the first value, default behavior
- *     true     - resolve the promise with an array containing the varadic arguments
+ *     true     - resolve the promise with an array containing the variadic arguments
  *     String[] - the names of the arguments to the callback, which will be used to create an object
  *       of values.
  * @return {Function: Promise} The promisified function.
@@ -76,7 +76,7 @@ function promisify(orig, options = {}) {
  *
  * @param {*} obj A value that can have properties.
  * @param {String[]} methodNames The methods to promisify.
- * @param {Boolean|String[]} options.varadic See the documentation for promisify.
+ * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  * @return {Object} The promisified object.
  */
 function promisifyMethods(obj, methodNames, options = {}) {
@@ -100,7 +100,7 @@ function promisifyMethods(obj, methodNames, options = {}) {
  * @param {*} obj A value that can have properties.
  * @param {Boolean} options.copyAll Whether to copy the iterable, non-method properties to the new
  *   object.
- * @param {Boolean|String[]} options.varadic See the documentation for promisify.
+ * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  * @return {Object} The promisified object.
  */
 function promisifyAll(obj, options = {}) {

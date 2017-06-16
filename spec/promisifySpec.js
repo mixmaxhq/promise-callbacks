@@ -12,12 +12,12 @@ describe('promisify', function() {
   });
 
   it('should handle multiple values as an array', async function() {
-    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {varadic: true})();
+    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {variadic: true})();
     expect(values).toEqual(['v1', 'v2', 'v3']);
   });
 
   it('should handle multiple values as an object', async function() {
-    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {varadic: ['v1', 'v2', 'v3']})();
+    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {variadic: ['v1', 'v2', 'v3']})();
     expect(values).toEqual({v1: 'v1', v2: 'v2', v3: 'v3'});
   });
 
