@@ -76,7 +76,7 @@ describe('promisify', function() {
 
       const origBeep = api.beep;
 
-      const promiseAPI = promisify.methods(api, ['beep'], {createCopy: true});
+      const promiseAPI = promisify.methods(api, ['beep']);
 
       expect(api.noot()).toBe(7);
       expect(api.beep).toBe(origBeep);
@@ -100,7 +100,7 @@ describe('promisify', function() {
 
       const orig = Object.assign({}, api);
 
-      const promiseAPI = promisify.all(api, {createCopy: true});
+      const promiseAPI = promisify.all(api);
 
       expect(api).toEqual(orig);
 
