@@ -1,8 +1,20 @@
 const { asCallback, patchPromise, unpatchPromise } = require('../src/asCallback');
 
+/**
+ * Wrap the asCallback function with a check that ensures the callback is never called twice.
+ */
+function asCheckedCallback(promise, cb) {
+  let called = false;
+  asCallback(promise, function(...args) {
+    expect(called).toBeFalsy();
+    called = true;
+    return cb.apply(this, args);
+  });
+}
+
 describe('asCallback', function() {
   it('lets you handle promise errors using callbacks', function(done) {
-    asCallback(Promise.reject(new Error('boo')), function(err, res) {
+    asCheckedCallback(Promise.reject(new Error('boo')), function(err, res) {
       expect(err).toBeTruthy();
       expect(err.constructor).toBe(Error);
       expect(err.message).toBe('boo');
@@ -14,7 +26,7 @@ describe('asCallback', function() {
   });
 
   it('lets you handle promise results using callbacks', function(done) {
-    asCallback(Promise.resolve(true), function(err, res) {
+    asCheckedCallback(Promise.resolve(true), function(err, res) {
       expect(err).toBeFalsy();
       expect(res).toBe(true);
       done();
