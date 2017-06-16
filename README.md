@@ -56,6 +56,36 @@ async function foo() {
 What happened there is that `promise.deferred()` took the result of `respondWithDelay`, as a
 callback, and `resolved`/`rejected` the associated `Promise`.
 
+### Variadic arguments
+
+To support callbacks that provide several values, you have two options: as an array - where you can
+[destructure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+into your own variables, or as an object, with a similar outcome.
+
+```js
+const { deferred } = require('promise-callbacks');
+
+function manyValues(done) {
+  setTimeout(() => {
+    done(null, 'several', 'values', 'here');
+  }, 2000);
+}
+
+async function asArray() {
+  const promise = deferred({variadic: true});
+  respondWithDelay(promise.defer());
+  const [first, second, third] = await promise;
+  console.log(`${first} ${second} ${third}`);
+}
+
+async function asObject() {
+  const promise = deferred({variadic: ['first', 'second', 'third']});
+  respondWithDelay(promise.defer());
+  const {first, second, third} = await promise;
+  console.log(`${first} ${second} ${third}`);
+}
+```
+
 ## Converting a callback API to a promise API
 
 The `promisify` function is based off of Node 8's `util.promisify`. It works on versions of Node
@@ -135,11 +165,5 @@ Promise.resolve(true).asCallback((err, res) => {
 to start it.
 
 ## Shout-outs
-
-`sync` is inspired by / named after
-[`synchronize.js`](http://alexeypetrushin.github.io/synchronize/docs/index.html), a wonderful
-library that was [Mixmax](https://mixmax.com/)'s
-[coroutine of choice](https://mixmax.com/blog/node-fibers-using-synchronize-js) prior to Node adding
-support for `async`/`await`.
 
 `asCallback` is inspired by [Bluebird](http://bluebirdjs.com/docs/api/ascallback.html).
