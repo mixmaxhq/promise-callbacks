@@ -23,6 +23,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 const kCustomPromisifiedSymbol = Symbol.for('util.promisify.custom');
+const callbackBuilder = require('./callbackBuilder');
 
 /**
  * Promisify the given function.
@@ -35,7 +36,7 @@ const kCustomPromisifiedSymbol = Symbol.for('util.promisify.custom');
  *     String[] - the names of the arguments, which will be used to create an object of values.
  * @return {Function: Promise} The promisified function.
  */
-function promisify(orig, {varadic} = {}) {
+function promisify(orig, options = {}) {
   if (typeof orig !== 'function') {
     throw new TypeError('promisify requires a function');
   }
@@ -54,19 +55,7 @@ function promisify(orig, {varadic} = {}) {
   function fn(...args) {
     return new Promise((resolve, reject) => {
       try {
-        orig.call(this, ...args, (err, ...values) => {
-          if (err) {
-            reject(err);
-          } else if (Array.isArray(varadic)) {
-            const obj = {};
-            for (let i = 0; i < varadic.length; i++) {
-              obj[varadic[i]] = values[i];
-            }
-            resolve(obj);
-          } else {
-            resolve(varadic ? values : values[0]);
-          }
-        });
+        orig.call(this, ...args, callbackBuilder(resolve, reject, options));
       } catch (err) {
         reject(err);
       }
