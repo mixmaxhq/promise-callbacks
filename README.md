@@ -3,8 +3,8 @@
 This package helps you work with a codebase that uses promises instead of callbacks in
 most-but-not-all places. _It differs from most other callback-to-promise libraries out there_ by
 preferring a deferred variant of a `Promise` with a Node callback-compliant `defer` method.
-As such, its difference is most significantly that it focuses on interoperating with callbacks _at
-the call site_.
+As such, it is most different in that it focuses on interoperating with callbacks _at the call
+site_.
 
 It also uses native promises not Bluebird etc.
 
