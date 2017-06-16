@@ -1,12 +1,12 @@
 const { asCallback, patchPromise, unpatchPromise } = require('./asCallback');
-const sync = require('./sync');
+const deferred = require('./deferred');
 const promisify = require('./promisify');
 
 module.exports = {
   asCallback,
   patchPromise,
   unpatchPromise,
-  sync,
+  deferred,
   promisify,
   promisifyMethods: promisify.methods,
   promisifyAll: promisify.all

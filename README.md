@@ -35,9 +35,9 @@ this if you're using Chrome minus 2 or Node 7.6.0 or higher for `async`/`await`.
 
 ## Converting a callback API to a promise API
 
-The `promisify` function is based off of Node 8's `util.promisify`, but has special support for
-callbacks with multiple values, and has utilities to create a copy of an object with
-promise-returning methods.
+The `promisify` function is based off of Node 8's `util.promisify`. It works on versions of Node
+prior to 8, and has special support for callbacks with multiple values, and has utilities to create
+a copy of an object with promise-returning methods.
 
 ### For a function
 
@@ -81,42 +81,22 @@ async function foo() {
 
 ## Converting a callback to a promise
 
-_Note: this API is discouraged. It uses mutable global state, and has a fundamental flaw, both of
-which result in difficult-to-trace problems._
-
 ```js
-const { sync } = require('promise-callbacks');
+const { deferred } = require('promise-callbacks');
 
 function respondWithDelay(done) {
   setTimeout(() => done(null, 'hi'), 2000);
 }
 
 async function foo() {
-  console.log(await sync.get(respondWithDelay(sync.set())));
+  const promise = deferred();
+  respondWithDelay(promise.defer());
+  console.log(await promise);
 }
 ```
 
-What happened there is that `sync.set()` stored a promise and returned a Node errback, which when
-called resolved that promise. `sync.get()` retrieved the promise so that you could `await` it.
-
-`sync.get` doesn't take any arguments&mdash;putting the call to `respondWithDelay` "inside" it
-is just syntax sugar that works because JS interpreters evaluate the arguments to functions
-(i.e. `respondWithDelay(sync.set()))`) before the function calls themselves (`sync.get()`). It
-would be equivalent to do
-
-```js
-async function foo() {
-  respondWithDelay(sync.set());
-  console.log(await sync.get());
-}
-```
-
-The calls MUST be paired, i.e.:
-
-1. Make sure you call `set` before `get`
-2. Make sure to call `get` before calling `set` again
-
-The library will helpfully throw exceptions if you violate those guidelines.
+What happened there is that `promise.deferred()` took the result of `respondWithDelay`, as a
+callback, and `resolved`/`rejected` the associated `Promise`.
 
 ## Converting a promise to a callback
 
@@ -150,7 +130,10 @@ to start it.
 
 ## Shout-outs
 
-`sync` is inspired by / named after [`synchronize.js`](http://alexeypetrushin.github.io/synchronize/docs/index.html), a wonderful library that was [Mixmax](https://mixmax.com/)'s [coroutine of choice](https://mixmax.com/blog/node-fibers-using-synchronize-js)
-prior to Node adding support for `async`/`await`.
+`sync` is inspired by / named after
+[`synchronize.js`](http://alexeypetrushin.github.io/synchronize/docs/index.html), a wonderful
+library that was [Mixmax](https://mixmax.com/)'s
+[coroutine of choice](https://mixmax.com/blog/node-fibers-using-synchronize-js) prior to Node adding
+support for `async`/`await`.
 
 `asCallback` is inspired by [Bluebird](http://bluebirdjs.com/docs/api/ascallback.html).
