@@ -33,7 +33,56 @@ this if you're using Chrome minus 2 or Node 7.6.0 or higher for `async`/`await`.
 
 ## Usage
 
-### Converting a callback to a promise
+## Converting a callback API to a promise API
+
+The `promisify` function is based off of Node 8's `util.promisify`, but has special support for
+callbacks with multiple values, and has utilities to create a copy of an object with
+promise-returning methods.
+
+### For a function
+
+```js
+const { promisify } = require('promise-callbacks');
+
+function respondWithDelay(done) {
+  setTimeout(() => done(null, 'hi'), 2000);
+}
+
+const respondWithDelayPromised = promisify(respondWithDelay);
+
+async function foo() {
+  console.log(await respondWithDelayPromised());
+}
+```
+
+## For an object
+
+```js
+const { promisify } = require('promise-callbacks');
+const fs = require('fs');
+
+const { readFile, writeFile } = promisify.methods(fs, ['readFile', 'writeFile']);
+
+readFile('input')
+  .then((content) => writeFile('output', content))
+  .catch((err) => console.error('err', err));
+
+// If you know all the methods of the object are asynchronous, use promisify.all:
+const api = {
+  respondWithDelay
+};
+
+const promiseAPI = promisify.all(api);
+
+async function foo() {
+  console.log(await promiseAPI.respondWithDelay());
+}
+```
+
+## Converting a callback to a promise
+
+_Note: this API is discouraged. It uses mutable global state, and has a fundamental flaw, both of
+which result in difficult-to-trace problems._
 
 ```js
 const { sync } = require('promise-callbacks');
