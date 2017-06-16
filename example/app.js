@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { patchPromise, sync } = require('..');
+const { patchPromise, deferred } = require('..');
 
 
 // Adds Promise#asCallback.
@@ -32,7 +32,9 @@ app.get('/', async function(req, res) {
 
 // Using old APIs that can't be refactored to return promises for some reason.
 app.get('/sync', async function(req, res) {
-  res.send(await sync.get(respond('from new world', sync.set())));
+  const promise = deferred();
+  respond('from new world', promise.defer());
+  res.send(await promise);
 });
 
 // Use new (promise-using) APIs with callbacks for some reason.
