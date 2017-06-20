@@ -3,13 +3,19 @@ const { asCallback, patchPromise, unpatchPromise } = require('../src/asCallback'
 /**
  * Wrap the asCallback function with a check that ensures the callback is never called twice.
  */
-function asCheckedCallback(promise, cb) {
+function asCheckedCallback(promise, cb, useOwnMethod=false) {
   let called = false;
-  asCallback(promise, function(...args) {
+  if (useOwnMethod) {
+    promise.asCallback(after);
+  } else {
+    asCallback(promise, after);
+  }
+
+  function after(...args) {
     expect(called).toBeFalsy();
     called = true;
     return cb.apply(this, args);
-  });
+  }
 }
 
 describe('asCallback', function() {
@@ -42,10 +48,12 @@ describe('asCallback', function() {
       // Don't use `unpatchPromise` to clean up for both `patchPromise` and
       // the other function attached in `'refuses to overwrite existing method'`.
       delete Promise.prototype.asCallback;
+      delete Promise.delay;
+      delete Promise.withTimeout;
     });
 
     it('lets you handle errors using callbacks', function(done) {
-      Promise.reject(new Error('boo')).asCallback(function(err, res) {
+      asCheckedCallback(Promise.reject(new Error('boo')), function(err, res) {
         expect(err).toBeTruthy();
         expect(err.constructor).toBe(Error);
         expect(err.message).toBe('boo');
@@ -53,15 +61,15 @@ describe('asCallback', function() {
         expect(res).toBeFalsy();
 
         done();
-      });
+      }, true);
     });
 
     it('lets you handle results using callbacks', function(done) {
-      Promise.resolve(true).asCallback(function(err, res) {
+      asCheckedCallback(Promise.resolve(true), function(err, res) {
         expect(err).toBeFalsy();
         expect(res).toBe(true);
         done();
-      });
+      }, true);
     });
 
     // The callback should terminate the promise chain if any.
@@ -72,11 +80,11 @@ describe('asCallback', function() {
     it('is no-op when binding multiple times', function(done) {
       expect(patchPromise).not.toThrow();
 
-      Promise.resolve(true).asCallback(function(err, res) {
+      asCheckedCallback(Promise.resolve(true), function(err, res) {
         expect(err).toBeFalsy();
         expect(res).toBe(true);
         done();
-      });
+      }, true);
     });
 
     it('can be unbound', function() {
@@ -88,7 +96,7 @@ describe('asCallback', function() {
     it('refuses to overwrite existing method', function() {
       unpatchPromise();
 
-      let fn = function() {};
+      function fn() {}
       Promise.prototype.asCallback = fn;
       expect(patchPromise).toThrow();
 

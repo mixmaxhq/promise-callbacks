@@ -1,6 +1,6 @@
 {
   "name": "promise-callbacks",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Utilities to help convert a callback-using codebase to promises.",
   "engines": {
     "node": ">=7.6.0"
@@ -8,6 +8,9 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jasmine",
+    "yarn-check": "yarn check",
+    "lint": "eslint .",
+    "ci": "npm run lint && npm test && npm run yarn-check",
     "example": "node ./example/app.js"
   },
   "keywords": [
@@ -19,9 +22,12 @@
     "es8"
   ],
   "author": "Jeff Wear <jeff@mixmax.com> (https://mixmax.com)",
-  "contributors": ["Eli Skeggs <eli@mixmax.com> (https://eliskeggs.com)"],
+  "contributors": [
+    "Eli Skeggs <eli@mixmax.com> (https://eliskeggs.com)"
+  ],
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^4.0.0",
     "eslint-config-mixmax": "^0.2.0",
     "express": "^4.15.2",
     "jasmine": "^2.5.3",
