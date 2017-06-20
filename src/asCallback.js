@@ -1,3 +1,5 @@
+const { patchPromiseStatic, unpatchPromiseStatic } = require('./static');
+
 /**
  * Calls the specified callback with the result of the promise.
  *
@@ -22,8 +24,13 @@ function asCallback(promise, cb) {
 function patchPromise() {
   if (Promise.prototype.asCallback !== promiseAsCallback) {
     if (Promise.prototype.asCallback) throw new Error('`Promise` already defines `asCallback`.');
-    Promise.prototype.asCallback = promiseAsCallback;
+    Object.defineProperty(Promise.prototype, 'asCallback', {
+      writable: true,
+      configurable: true,
+      value: promiseAsCallback
+    });
   }
+  patchPromiseStatic();
 }
 
 /**
@@ -35,6 +42,7 @@ function unpatchPromise() {
   if (Promise.prototype.asCallback === promiseAsCallback) {
     delete Promise.prototype.asCallback;
   }
+  unpatchPromiseStatic();
 }
 
 function promiseAsCallback(cb) {

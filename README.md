@@ -150,7 +150,9 @@ Straightforward. Or, if you don't mind just a little bit of monkey-patching:
 const { patchPromise } = require('promise-callbacks');
 
 // Call this once, when your application starts up,
-// to add `asCallback` to `Promise.prototype`.
+// to add `asCallback` to `Promise.prototype`, as
+// well as several utility functions to `Promise`
+// itself (see below).
 patchPromise();
 
 // Thereafter:
@@ -158,6 +160,28 @@ Promise.resolve(true).asCallback((err, res) => {
   console.log(res); // true
 });
 ```
+
+## `Promise` utilities
+
+These utilities are exposed if `patchPromise` is invoked. They are also accessible on the
+`promise-callbacks` module itself.
+
+### `Promise.delay(timeout)`
+
+Returns a promise that will resolve after the specified timeout.
+
+### `Promise.immediate()`
+
+Returns a promise that will resolve after the event loop has processed - analogous to `setImmediate`.
+
+### `Promise.nextTick()`
+
+Returns a promise that will resolve after the next process tick - analogous to `process.nextTick`.
+
+### `Promise.withTimeout(promise, timeout, [message])`
+
+Returns a promise that will reject after the specified timeout, unless the given promise resolves or
+rejects before that timeout.
 
 ## Real-world example
 

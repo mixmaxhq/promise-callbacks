@@ -24,7 +24,7 @@ describe('promisify', function() {
   it('should handle synchronous errors', async function() {
     let err;
     try {
-      await promisify((done) => {
+      await promisify(() => {
         throw new Error('oops!');
       })();
 
