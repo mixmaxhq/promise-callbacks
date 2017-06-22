@@ -25,17 +25,20 @@ function unpatchPromiseStatic() {
   }
 }
 
-async function withTimeout(promise, delay, message='Operation timed out.') {
+function withTimeout(promise, delay, message='Operation timed out.') {
   let timeout;
-  try {
-    return await Promise.race([promise, new Promise((resolve, reject) => {
-      // Instantiate the error here to capture a more useful stack trace.
-      const error = (message instanceof Error) ? message : new Error(message);
-      timeout = setTimeout(() => reject(error), delay);
-    })]);
-  } finally {
+  const timeoutPromise = new Promise((resolve, reject) => {
+    // Instantiate the error here to capture a more useful stack trace.
+    const error = (message instanceof Error) ? message : new Error(message);
+    timeout = setTimeout(() => reject(error), delay);
+  });
+  return Promise.race([promise, timeoutPromise]).then((value) => {
     clearTimeout(timeout);
-  }
+    return value;
+  }, (err) => {
+    clearTimeout(timeout);
+    throw err;
+  });
 }
 
 function delay(time, ...args) {
