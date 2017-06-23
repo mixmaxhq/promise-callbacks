@@ -2,8 +2,5 @@ dist: trusty
 sudo: false
 language: node_js
 node_js:
-  - "6.9.1"
-  - "6"
   - "7.6.0"
-  - node
 cache: yarn
