@@ -108,6 +108,25 @@ async function foo() {
 }
 ```
 
+### Variadic callbacks
+
+Much like `deferred`, you can receive multiple callback arguments by passing the `variadic` option to promisify. This also works with `promisify.methods` and `promisify.all`.
+
+```js
+const { promisify } = require('promise-callbacks');
+
+function respondWithDelay(done) {
+  setTimeout(() => done(null, 3, 2, 1, 4), 2000);
+}
+
+const respondWithDelayPromised = promisify(respondWithDelay, {variadic: true});
+
+async function foo() {
+  console.log(await respondWithDelayPromised());
+  // => [3, 2, 1, 4]
+}
+```
+
 ## For an object
 
 ```js
