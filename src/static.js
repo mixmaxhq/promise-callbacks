@@ -42,7 +42,7 @@ function withTimeout(promise, delay, message='Operation timed out.') {
 }
 
 function delay(time, ...args) {
-  return new Promise((resolve) => setTimeout(resolve, delay, ...args));
+  return new Promise((resolve) => setTimeout(resolve, time, ...args));
 }
 
 function nextTick(...args) {
