@@ -34,6 +34,6 @@
     "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node"
   },
   "dependencies": {
-    "object.getownpropertydescriptors": "^2.0.3"
+    "object.getownpropertydescriptors": "2.0.3"
   }
 }
