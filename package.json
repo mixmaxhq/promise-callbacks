@@ -1,6 +1,6 @@
 {
   "name": "promise-callbacks",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Utilities to help convert a callback-using codebase to promises.",
   "engines": {
     "node": ">=6.9.0"
