@@ -32,5 +32,8 @@
     "express": "^4.15.2",
     "jasmine": "^2.5.3",
     "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node"
+  },
+  "dependencies": {
+    "object.getownpropertydescriptors": "2.0.3"
   }
 }

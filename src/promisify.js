@@ -24,6 +24,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 const kCustomPromisifiedSymbol = Symbol.for('util.promisify.custom');
 const callbackBuilder = require('./callbackBuilder');
+const getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
 
 /**
  * Promisify the given function.
@@ -68,7 +69,7 @@ function promisify(orig, options = {}) {
   Object.defineProperty(fn, kCustomPromisifiedSymbol, {
     value: fn, enumerable: false, writable: false, configurable: true
   });
-  return Object.defineProperties(fn, Object.getOwnPropertyDescriptors(orig));
+  return Object.defineProperties(fn, getOwnPropertyDescriptors(orig));
 }
 
 /**
