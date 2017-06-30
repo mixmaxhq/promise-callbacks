@@ -11,6 +11,8 @@ module.exports = {
   promisify,
   promisifyMethods: promisify.methods,
   promisifyAll: promisify.all,
-  withTimeout: static.withTimeout,
-  delay: static.delay
+  withTimeout: static.statics.withTimeout,
+  delay: static.statics.delay,
+  nextTick: static.statics.nextTick,
+  immediate: static.statics.immediate
 };

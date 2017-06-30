@@ -29,7 +29,7 @@ function withTimeout(promise, delay, message='Operation timed out.') {
   let timeout;
   const timeoutPromise = new Promise((resolve, reject) => {
     // Instantiate the error here to capture a more useful stack trace.
-    const error = (message instanceof Error) ? message : new Error(message);
+    const error = message instanceof Error ? message : new Error(message);
     timeout = setTimeout(() => reject(error), delay);
   });
   return Promise.race([promise, timeoutPromise]).then((value) => {
@@ -41,19 +41,24 @@ function withTimeout(promise, delay, message='Operation timed out.') {
   });
 }
 
-function delay(time, ...args) {
-  return new Promise((resolve) => setTimeout(resolve, time, ...args));
+function delay(time, value) {
+  return new Promise((resolve) => setTimeout(resolve, time, value));
 }
 
-function nextTick(...args) {
-  return new Promise((resolve) => process.nextTick(resolve, ...args));
+function nextTick(value) {
+  return new Promise((resolve) => process.nextTick(resolve, value));
 }
 
-function immediate(...args) {
-  return new Promise((resolve) => setImmediate(resolve, ...args));
+function immediate(value) {
+  return new Promise((resolve) => setImmediate(resolve, value));
 }
 
 module.exports = {
   patchPromiseStatic,
-  unpatchPromiseStatic
+  unpatchPromiseStatic,
+  statics: {}
 };
+
+for (let fn of staticProperties) {
+  module.exports.statics[fn.name] = fn;
+}
