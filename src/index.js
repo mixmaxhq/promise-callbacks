@@ -1,18 +1,29 @@
-const { asCallback, patchPromise, unpatchPromise } = require('./asCallback');
+'use strict';
+
+const method = require('./method');
+const static_ = require('./static');
 const deferred = require('./deferred');
 const promisify = require('./promisify');
-const static = require('./static');
+
+function patchPromise() {
+  static_.patchPromise();
+  method.patchPromise();
+}
+
+function unpatchPromise() {
+  static_.unpatchPromise();
+  method.unpatchPromise();
+}
 
 module.exports = {
-  asCallback,
   patchPromise,
   unpatchPromise,
   deferred,
   promisify,
   promisifyMethods: promisify.methods,
   promisifyAll: promisify.all,
-  withTimeout: static.statics.withTimeout,
-  delay: static.statics.delay,
-  nextTick: static.statics.nextTick,
-  immediate: static.statics.immediate
 };
+
+for (let method of require('./statics')) {
+  module.exports[method.name] = method;
+}

@@ -1,3 +1,5 @@
+'use strict';
+
 /***************************************************************************************************
 
 The promisify implementation found in this file is derived from the implementation in Node.js. Its
@@ -23,8 +25,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 const kCustomPromisifiedSymbol = Symbol.for('util.promisify.custom');
-const callbackBuilder = require('./callbackBuilder');
 const getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
+const callbackBuilder = require('./callbackBuilder');
+const toArray = require('./utils').toArray;
 
 /**
  * Promisify the given function.
@@ -38,7 +41,7 @@ const getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
  *       of values.
  * @return {Function: Promise} The promisified function.
  */
-function promisify(orig, options = {}) {
+function promisify(orig, options) {
   if (typeof orig !== 'function') {
     throw new TypeError('promisify requires a function');
   }
@@ -54,10 +57,12 @@ function promisify(orig, options = {}) {
     return fn;
   }
 
-  function fn(...args) {
+  function fn() {
+    const args = toArray(arguments);
     return new Promise((resolve, reject) => {
+      args.push(callbackBuilder(resolve, reject, options));
       try {
-        orig.call(this, ...args, callbackBuilder(resolve, reject, options));
+        orig.apply(this, args);
       } catch (err) {
         reject(err);
       }
@@ -80,7 +85,7 @@ function promisify(orig, options = {}) {
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  * @return {Object} The promisified object.
  */
-function promisifyMethods(obj, methodNames, options = {}) {
+function promisifyMethods(obj, methodNames, options) {
   if (!obj) {
     // This object could be anything, including a function, a real object, or an array.
     throw new TypeError('promisify.methods requires a truthy value');
@@ -99,12 +104,10 @@ function promisifyMethods(obj, methodNames, options = {}) {
  * Promisify all functions on the given object.
  *
  * @param {*} obj A value that can have properties.
- * @param {Boolean} options.copyAll Whether to copy the iterable, non-method properties to the new
- *   object.
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  * @return {Object} The promisified object.
  */
-function promisifyAll(obj, options = {}) {
+function promisifyAll(obj, options) {
   if (!obj) {
     // This object could be anything, including a function, a real object, or an array.
     throw new TypeError('promisify.all requires a truthy value');
@@ -115,8 +118,6 @@ function promisifyAll(obj, options = {}) {
   for (var name in obj) {
     if (typeof obj[name] === 'function') {
       out[name] = promisify(obj[name].bind(obj), options);
-    } else if (options.copyAll) {
-      out[name] = obj[name];
     }
   }
 

@@ -1,9 +1,14 @@
-const { asCallback, patchPromise, unpatchPromise } = require('../src/asCallback');
+'use strict';
+
+const pc = require('..');
+const asCallback = pc.asCallback;
+const patchPromise = pc.patchPromise;
+const unpatchPromise = pc.unpatchPromise;
 
 /**
  * Wrap the asCallback function with a check that ensures the callback is never called twice.
  */
-function asCheckedCallback(promise, cb, useOwnMethod=false) {
+function asCheckedCallback(promise, cb, useOwnMethod) {
   let called = false;
   if (useOwnMethod) {
     promise.asCallback(after);
@@ -11,10 +16,10 @@ function asCheckedCallback(promise, cb, useOwnMethod=false) {
     asCallback(promise, after);
   }
 
-  function after(...args) {
+  function after() {
     expect(called).toBeFalsy();
     called = true;
-    return cb.apply(this, args);
+    return cb.apply(this, arguments);
   }
 }
 
@@ -45,11 +50,7 @@ describe('asCallback', function() {
     });
 
     afterEach(function() {
-      // Don't use `unpatchPromise` to clean up for both `patchPromise` and
-      // the other function attached in `'refuses to overwrite existing method'`.
-      delete Promise.prototype.asCallback;
-      delete Promise.delay;
-      delete Promise.withTimeout;
+      unpatchPromise();
     });
 
     it('lets you handle errors using callbacks', function(done) {

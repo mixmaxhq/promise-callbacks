@@ -1,15 +1,16 @@
-const hasOwn = Object.prototype.hasOwnProperty;
+'use strict';
 
-const staticProperties = [withTimeout, delay, nextTick, immediate];
+const staticProperties = require('./statics');
 
-function patchPromiseStatic() {
+function patchPromise() {
   const props = {};
   for (let fn of staticProperties) {
-    if (hasOwn.call(Promise, fn.name) && Promise[fn.name] !== fn) {
+    if (Promise[fn.name] && Promise[fn.name] !== fn) {
       throw new Error(`Promise already defines ${fn.name}.`);
     }
     props[fn.name] = {
       configurable: true,
+      enumerable: false,
       writable: true,
       value: fn
     };
@@ -17,7 +18,7 @@ function patchPromiseStatic() {
   Object.defineProperties(Promise, props);
 }
 
-function unpatchPromiseStatic() {
+function unpatchPromise() {
   for (let fn of staticProperties) {
     if (Promise[fn.name] === fn) {
       delete Promise[fn.name];
@@ -25,37 +26,9 @@ function unpatchPromiseStatic() {
   }
 }
 
-function withTimeout(promise, delay, message='Operation timed out.') {
-  let timeout;
-  const timeoutPromise = new Promise((resolve, reject) => {
-    // Instantiate the error here to capture a more useful stack trace.
-    const error = message instanceof Error ? message : new Error(message);
-    timeout = setTimeout(reject, delay, error);
-  });
-  return Promise.race([promise, timeoutPromise]).then((value) => {
-    clearTimeout(timeout);
-    return value;
-  }, (err) => {
-    clearTimeout(timeout);
-    throw err;
-  });
-}
-
-function delay(time, value) {
-  return new Promise((resolve) => setTimeout(resolve, time, value));
-}
-
-function nextTick(value) {
-  return new Promise((resolve) => process.nextTick(resolve, value));
-}
-
-function immediate(value) {
-  return new Promise((resolve) => setImmediate(resolve, value));
-}
-
 module.exports = {
-  patchPromiseStatic,
-  unpatchPromiseStatic,
+  patchPromise,
+  unpatchPromise,
   statics: {}
 };
 

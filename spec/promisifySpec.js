@@ -107,26 +107,5 @@ describe('promisify', function() {
       expect(promiseAPI.value).toBeUndefined();
       expect(await Promise.all([promiseAPI.beep(), promiseAPI.nooter()])).toEqual([8, 7]);
     });
-
-    it('should copy all the properties', async function() {
-      const api = {
-        beep(done) {
-          process.nextTick(() => done(null, 8));
-        },
-        nooter(done) {
-          process.nextTick(() => done(null, 7));
-        },
-        value: 'hello'
-      };
-
-      const orig = Object.assign({}, api);
-
-      const promiseAPI = promisify.all(api, {copyAll: true});
-
-      expect(api).toEqual(orig);
-
-      expect(promiseAPI.value).toBe('hello');
-      expect(await Promise.all([promiseAPI.beep(), promiseAPI.nooter()])).toEqual([8, 7]);
-    });
   });
 });

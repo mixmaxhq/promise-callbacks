@@ -1,3 +1,5 @@
+'use strict';
+
 const callbackBuilder = require('./callbackBuilder');
 
 /**
@@ -5,13 +7,13 @@ const callbackBuilder = require('./callbackBuilder');
  *
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  */
-function deferred(options = {}) {
-  let handlers = null;
-  const promise = new Promise((resolve, reject) => handlers = [resolve, reject]);
+function deferred(options) {
+  let args = null;
+  const promise = new Promise((resolve, reject) => args = [resolve, reject, options]);
   promise.defer = function defer() {
-    if (!handlers) throw new Error('defer has already been called');
-    const callback = callbackBuilder(...handlers, options);
-    handlers = null;
+    if (!args) throw new Error('defer has already been called');
+    const callback = callbackBuilder.apply(undefined, args);
+    args = null;
     return callback;
   };
   return promise;
