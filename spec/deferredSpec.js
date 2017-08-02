@@ -13,7 +13,7 @@ describe('deferred', function() {
     try {
       process.nextTick(promise.defer(), new Error('boo'));
       await promise;
-    } catch(e) {
+    } catch (e) {
       err = e;
     }
 
