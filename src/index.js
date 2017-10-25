@@ -20,6 +20,7 @@ module.exports = {
   unpatchPromise,
   deferred,
   promisify,
+  promisifyMethod: promisify.method,
   promisifyMethods: promisify.methods,
   promisifyAll: promisify.all,
 };

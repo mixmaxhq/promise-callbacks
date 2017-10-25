@@ -63,6 +63,22 @@ describe('promisify', function() {
     expect(await promisify(ex)()).toBe('surprise!');
   });
 
+  describe('method', function() {
+    it('should promisify the given method', async function() {
+      const api = {
+        beep(done) {
+          process.nextTick(() => done(null, 8));
+        }
+      };
+
+      const origBeep = api.beep;
+      const beepPromiseAPI = promisify.method(api, 'beep');
+
+      expect(api.beep).toBe(origBeep);
+      expect(await beepPromiseAPI()).toBe(8);
+    });
+  });
+
   describe('methods', function() {
     it('should promisify the given methods', async function() {
       const api = {
