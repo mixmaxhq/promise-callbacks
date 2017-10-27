@@ -1,5 +1,6 @@
 ## Release History
 
+* 3.1.0 Add `promisify.method` convenience method
 * 3.0.0 Add waitOn, wrapAsync
         Remove copyAll option from promisifyAll
         Fix support for Node 4
