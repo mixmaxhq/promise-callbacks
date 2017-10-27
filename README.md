@@ -141,6 +141,13 @@ readFile('input')
   .then((content) => writeFile('output', content))
   .catch((err) => console.error('err', err));
 
+// If you just care about one method, a less verbose option you can use is promisify.method:
+const readFileAsync = promisify.method(fs, 'readFile');
+
+readFileAsync('input')
+	.then((content) => writeFile('output', content))
+	.catch((err) => console.error('err', err));
+
 // If you know all the methods of the object are asynchronous, use promisify.all:
 const api = {
   respondWithDelay

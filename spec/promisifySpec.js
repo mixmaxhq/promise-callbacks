@@ -63,26 +63,47 @@ describe('promisify', function() {
     expect(await promisify(ex)()).toBe('surprise!');
   });
 
+  describe('method', function() {
+    it('should promisify the given method', async function() {
+      const api = {
+        beepSound: 'boop',
+        beep(done) {
+          process.nextTick(() => done(null, this.beepSound));
+        }
+      };
+
+      const newBeepSound = 'beep';
+      api.beepSound = newBeepSound;
+      const origBeep = api.beep;
+      const beepPromiseAPI = promisify.method(api, 'beep');
+
+      expect(api.beep).toBe(origBeep);
+      expect(await beepPromiseAPI()).toBe(newBeepSound);
+    });
+  });
+
   describe('methods', function() {
     it('should promisify the given methods', async function() {
       const api = {
+        beepSound: 'boop',
         beep(done) {
-          process.nextTick(() => done(null, 8));
+          process.nextTick(() => done(null, this.beepSound));
         },
         noot() {
           return 7;
         }
       };
 
+      const newBeepSound = 'beep';
+      api.beepSound = newBeepSound;
       const origBeep = api.beep;
-
       const promiseAPI = promisify.methods(api, ['beep']);
 
       expect(api.noot()).toBe(7);
       expect(api.beep).toBe(origBeep);
 
       expect(promiseAPI.noot).toBeUndefined();
-      expect(await promiseAPI.beep()).toBe(8);
+      expect(await promiseAPI.beep()).toBe(newBeepSound);
     });
   });
 

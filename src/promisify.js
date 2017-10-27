@@ -78,6 +78,22 @@ function promisify(orig, options) {
 }
 
 /**
+ * Promisify the given name on the given object, and create a copy of the object.
+ *
+ * @param {*} obj A value that can have properties.
+ * @param {String} methodName The method to promisify.
+ * @param {Boolean|String[]} options.variadic See the documentation for promisify.
+ * @return {Object} The promisified object.
+ */
+function promisifyMethod(obj, methodName, options) {
+  if (!obj) {
+    // This object could be anything, including a function, a real object, or an array.
+    throw new TypeError('promisify.method requires a truthy value');
+  }
+  return promisify(obj[methodName].bind(obj), options);
+}
+
+/**
  * Promisify the given names on the given object, and create a copy of the object.
  *
  * @param {*} obj A value that can have properties.
@@ -127,6 +143,7 @@ function promisifyAll(obj, options) {
 promisify.custom = kCustomPromisifiedSymbol;
 
 promisify.all = promisifyAll;
+promisify.method = promisifyMethod;
 promisify.methods = promisifyMethods;
 promisify.promisifyAll = promisifyAll;
 promisify.promisifyMethods = promisifyMethods;
