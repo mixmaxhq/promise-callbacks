@@ -86,7 +86,11 @@ function promisify(orig, options) {
  * @return {Object} The promisified object.
  */
 function promisifyMethod(obj, methodName, options) {
-  return promisifyMethods(obj, [methodName], options)[methodName];
+  if (!obj) {
+    // This object could be anything, including a function, a real object, or an array.
+    throw new TypeError('promisify.method requires a truthy value');
+  }
+  return promisify(obj[methodName].bind(obj), options);
 }
 
 /**
