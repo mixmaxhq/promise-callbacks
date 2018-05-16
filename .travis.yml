@@ -4,4 +4,9 @@ language: node_js
 node_js:
   - "7.6.0"
   - node
-cache: yarn
+cache:
+  directories:
+    - $HOME/.mongodb-binaries
+    # Location of npm cache per https://docs.npmjs.com/cli/cache#cache. Shared by npx per
+    # https://github.com/zkat/npx/tree/6e89dbd5989366e52d3810692b1ab5889a05fbad#description.
+    - $HOME/.npm

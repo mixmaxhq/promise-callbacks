@@ -8,9 +8,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jasmine",
-    "yarn-check": "yarn check",
     "lint": "eslint .",
-    "ci": "npm run lint && npm test && npm run yarn-check",
+    "ci": "npm run lint && npm test",
     "example": "node ./example/app.js"
   },
   "keywords": [
