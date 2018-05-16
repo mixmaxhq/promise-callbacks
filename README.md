@@ -23,7 +23,7 @@ near future. In the meantime, there's `promise-callbacks` to keep it simple.
 ## Installation
 
 ```sh
-yarn add promise-callbacks
+npm install promise-callbacks
 ```
 
 or
