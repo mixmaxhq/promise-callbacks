@@ -3,6 +3,7 @@
 const method = require('./method');
 const static_ = require('./static');
 const deferred = require('./deferred');
+const defer = require('./defer');
 const promisify = require('./promisify');
 
 function patchPromise() {
@@ -19,6 +20,7 @@ module.exports = {
   patchPromise,
   unpatchPromise,
   deferred,
+  defer,
   promisify,
   promisifyMethod: promisify.method,
   promisifyMethods: promisify.methods,
