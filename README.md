@@ -187,6 +187,17 @@ Promise.resolve(true).asCallback((err, res) => {
 });
 ```
 
+## Creating a `Defer` object
+
+```js
+const { defer } = require('promise-callbacks');
+
+const def = defer();
+// => Hello, world!
+defer.promise.then((message) => console.log(message));
+defer.resolve('Hello, world!');
+```
+
 ## `Promise` utilities
 
 These utilities are exposed if `patchPromise` is invoked. They are also accessible on the
