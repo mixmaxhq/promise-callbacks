@@ -16,7 +16,7 @@ function unpatchPromise() {
   method.unpatchPromise();
 }
 
-module.exports = {
+module.exports = Object.assign({
   patchPromise,
   unpatchPromise,
   deferred,
@@ -25,8 +25,4 @@ module.exports = {
   promisifyMethod: promisify.method,
   promisifyMethods: promisify.methods,
   promisifyAll: promisify.all,
-};
-
-for (let method of require('./statics')) {
-  module.exports[method.name] = method;
-}
+}, require('./statics'));
