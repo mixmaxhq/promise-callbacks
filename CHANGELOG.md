@@ -1,5 +1,6 @@
 ## Release History
 
+* 3.2.1 Use explicit exports per #16.
 * 3.2.0 Add `defer` function, similar to `$.Deferred`
 * 3.1.0 Add `promisify.method` convenience method
 * 3.0.0 Add waitOn, wrapAsync
