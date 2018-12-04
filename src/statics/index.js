@@ -1,11 +1,11 @@
 'use strict';
 
-module.exports = [
-  require('./asCallback'),
-  require('./delay'),
-  require('./immediate'),
-  require('./nextTick'),
-  require('./waitOn'),
-  require('./withTimeout'),
-  require('./wrapAsync'),
-];
+module.exports = {
+  asCallback: require('./asCallback'),
+  delay: require('./delay'),
+  immediate: require('./immediate'),
+  nextTick: require('./nextTick'),
+  waitOn: require('./waitOn'),
+  withTimeout: require('./withTimeout'),
+  wrapAsync: require('./wrapAsync'),
+};

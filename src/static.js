@@ -4,11 +4,11 @@ const staticProperties = require('./statics');
 
 function patchPromise() {
   const props = {};
-  for (let fn of staticProperties) {
-    if (Promise[fn.name] && Promise[fn.name] !== fn) {
-      throw new Error(`Promise already defines ${fn.name}.`);
+  for (const [fnName, fn] of Object.entries(staticProperties)) {
+    if (Promise[fnName] && Promise[fnName] !== fn) {
+      throw new Error(`Promise already defines ${fnName}.`);
     }
-    props[fn.name] = {
+    props[fnName] = {
       configurable: true,
       enumerable: false,
       writable: true,
@@ -19,9 +19,9 @@ function patchPromise() {
 }
 
 function unpatchPromise() {
-  for (let fn of staticProperties) {
-    if (Promise[fn.name] === fn) {
-      delete Promise[fn.name];
+  for (const [fnName, fn] of Object.entries(staticProperties)) {
+    if (Promise[fnName] === fn) {
+      delete Promise[fnName];
     }
   }
 }
@@ -32,6 +32,4 @@ module.exports = {
   statics: {}
 };
 
-for (let fn of staticProperties) {
-  module.exports.statics[fn.name] = fn;
-}
+Object.assign(module.exports.statics, staticProperties);
