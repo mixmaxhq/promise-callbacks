@@ -194,8 +194,8 @@ const { defer } = require('promise-callbacks');
 
 const def = defer();
 // => Hello, world!
-defer.promise.then((message) => console.log(message));
-defer.resolve('Hello, world!');
+def.promise.then((message) => console.log(message));
+def.resolve('Hello, world!');
 ```
 
 ## `Promise` utilities
