@@ -53,7 +53,7 @@ async function foo() {
 }
 ```
 
-What happened there is that `promise.deferred()` took the result of `respondWithDelay`, as a
+What happened there is that `promise.defer()` took the result of `respondWithDelay`, as a
 callback, and `resolved`/`rejected` the associated `Promise`.
 
 It's also possible to achieve the above more succinctly using the `callAsync` function, as follows:
