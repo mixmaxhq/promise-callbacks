@@ -2,6 +2,7 @@
 
 const method = require('./method');
 const static_ = require('./static');
+const callAsync = require('./callAsync');
 const deferred = require('./deferred');
 const defer = require('./defer');
 const promisify = require('./promisify');
@@ -21,6 +22,7 @@ function unpatchPromise() {
 // module.exports object definition.
 exports.patchPromise = patchPromise;
 exports.unpatchPromise = unpatchPromise;
+exports.callAsync = callAsync;
 exports.deferred = deferred;
 exports.defer = defer;
 exports.promisify = promisify;

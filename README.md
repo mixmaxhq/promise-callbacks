@@ -56,6 +56,16 @@ async function foo() {
 What happened there is that `promise.deferred()` took the result of `respondWithDelay`, as a
 callback, and `resolved`/`rejected` the associated `Promise`.
 
+It's also possible to achieve the above more succinctly using the `callAsync` function, as follows:
+
+```js
+const { callAsync } = require('promise-callbacks');
+
+async function foo() {
+  console.log(await callAsync(respondWithDelay));  
+}
+``` 
+
 ### Variadic arguments
 
 To support callbacks that provide several values, you have two options: as an array - where you can
