@@ -1,5 +1,7 @@
 ## Release History
 
+* 3.3.0 Add callAsync function
+
 * 3.2.2 Actually use explicit exports per #16.
 * 3.2.1 Use explicit exports per #16.
 * 3.2.0 Add `defer` function, similar to `$.Deferred`
