@@ -9,7 +9,7 @@ const callbackBuilder = require('./callbackBuilder');
  */
 function deferred(options) {
   let args = null;
-  const promise = new Promise((resolve, reject) => args = [resolve, reject, options]);
+  const promise = new Promise((resolve, reject) => (args = [resolve, reject, options]));
   promise.defer = function defer() {
     if (!args) throw new Error('defer has already been called');
     const callback = callbackBuilder.apply(undefined, args);

@@ -2,10 +2,8 @@ const express = require('express');
 const app = express();
 const { patchPromise, deferred } = require('..');
 
-
 // Adds Promise#asCallback.
 patchPromise();
-
 
 // Test functions.
 function respond(subject, done) {
@@ -19,9 +17,8 @@ function respondWithPromise(subject) {
 }
 
 async function asyncRespondWithPromise(subject) {
-  return await respondWithPromise(subject);
+  return respondWithPromise(subject);
 }
-
 
 // API handlers.
 

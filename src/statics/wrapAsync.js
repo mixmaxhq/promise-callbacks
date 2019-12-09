@@ -27,7 +27,8 @@ function wrapAsync(fn, options) {
   return function asyncWrapper() {
     let syncErr = sentinel;
     const promise = new Promise((resolve, reject) => {
-      const cb = callbackBuilder(resolve, reject, options), args = toArray(arguments);
+      const cb = callbackBuilder(resolve, reject, options),
+        args = toArray(arguments);
       args.push(cb);
       let res;
       try {

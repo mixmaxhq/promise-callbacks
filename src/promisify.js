@@ -23,7 +23,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ***************************************************************************************************/
 
-
 const kCustomPromisifiedSymbol = Symbol.for('util.promisify.custom');
 const getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
 const callbackBuilder = require('./callbackBuilder');
@@ -52,7 +51,10 @@ function promisify(orig, options) {
       throw new TypeError('The [util.promisify.custom] property must be a function');
     }
     Object.defineProperty(fn, kCustomPromisifiedSymbol, {
-      value: fn, enumerable: false, writable: false, configurable: true
+      value: fn,
+      enumerable: false,
+      writable: false,
+      configurable: true,
     });
     return fn;
   }
@@ -72,7 +74,10 @@ function promisify(orig, options) {
   Object.setPrototypeOf(fn, Object.getPrototypeOf(orig));
 
   Object.defineProperty(fn, kCustomPromisifiedSymbol, {
-    value: fn, enumerable: false, writable: false, configurable: true
+    value: fn,
+    enumerable: false,
+    writable: false,
+    configurable: true,
   });
   return Object.defineProperties(fn, getOwnPropertyDescriptors(orig));
 }
@@ -109,7 +114,7 @@ function promisifyMethods(obj, methodNames, options) {
 
   const out = {};
 
-  for (let methodName of methodNames) {
+  for (const methodName of methodNames) {
     out[methodName] = promisify(obj[methodName].bind(obj), options);
   }
 
@@ -131,7 +136,7 @@ function promisifyAll(obj, options) {
 
   const out = {};
 
-  for (var name in obj) {
+  for (const name in obj) {
     if (typeof obj[name] === 'function') {
       out[name] = promisify(obj[name].bind(obj), options);
     }

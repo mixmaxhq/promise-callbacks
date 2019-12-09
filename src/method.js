@@ -12,7 +12,7 @@ const methods = require('./methods');
  */
 function patchPromise() {
   const props = {};
-  for (let method of methods) {
+  for (const method of methods) {
     if (Promise.prototype[method.name] && Promise.prototype[method.name] !== method) {
       throw new Error('`Promise` already defines method `' + method.name + '`');
     }
@@ -20,7 +20,7 @@ function patchPromise() {
       configurable: true,
       enumerable: false,
       writable: true,
-      value: method
+      value: method,
     };
   }
   Object.defineProperties(Promise.prototype, props);
@@ -32,7 +32,7 @@ function patchPromise() {
  * A no-op if `patchPromise` had not been called.
  */
 function unpatchPromise() {
-  for (let method of methods) {
+  for (const method of methods) {
     if (Promise.prototype[method.name] === method) {
       delete Promise.prototype[method.name];
     }
@@ -41,5 +41,5 @@ function unpatchPromise() {
 
 module.exports = {
   patchPromise,
-  unpatchPromise
+  unpatchPromise,
 };

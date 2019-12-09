@@ -34,15 +34,15 @@ describe('deferred', function() {
   });
 
   it('should handle multiple values as an array', async function() {
-    const promise = deferred({variadic: true});
+    const promise = deferred({ variadic: true });
     process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
     expect(await promise).toEqual(['v1', 'v2', 'v3']);
   });
 
   it('should handle multiple values as an object', async function() {
-    const promise = deferred({variadic: ['v1', 'v2', 'v3']});
+    const promise = deferred({ variadic: ['v1', 'v2', 'v3'] });
     process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
-    expect(await promise).toEqual({v1: 'v1', v2: 'v2', v3: 'v3'});
+    expect(await promise).toEqual({ v1: 'v1', v2: 'v2', v3: 'v3' });
   });
 
   it('throws if you call `defer` twice', function() {
