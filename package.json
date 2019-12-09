@@ -26,16 +26,16 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@mixmaxhq/prettier-config": "^1.0.0",
     "eslint": "^6.7.2",
     "eslint-config-mixmax": "^4.2.0",
     "express": "^4.15.2",
     "jasmine": "^2.5.3",
-    "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node"
+    "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node",
+    "prettier": "^1.19.1"
   },
   "dependencies": {
-    "@mixmaxhq/prettier-config": "^1.0.0",
-    "object.getownpropertydescriptors": "2.0.3",
-    "prettier": "^1.19.1"
+    "object.getownpropertydescriptors": "2.0.3"
   },
   "repository": {
     "type": "git",
