@@ -54,23 +54,31 @@ describe('asCallback', function() {
     });
 
     it('lets you handle errors using callbacks', function(done) {
-      asCheckedCallback(Promise.reject(new Error('boo')), function(err, res) {
-        expect(err).toBeTruthy();
-        expect(err.constructor).toBe(Error);
-        expect(err.message).toBe('boo');
+      asCheckedCallback(
+        Promise.reject(new Error('boo')),
+        function(err, res) {
+          expect(err).toBeTruthy();
+          expect(err.constructor).toBe(Error);
+          expect(err.message).toBe('boo');
 
-        expect(res).toBeFalsy();
+          expect(res).toBeFalsy();
 
-        done();
-      }, true);
+          done();
+        },
+        true
+      );
     });
 
     it('lets you handle results using callbacks', function(done) {
-      asCheckedCallback(Promise.resolve(true), function(err, res) {
-        expect(err).toBeFalsy();
-        expect(res).toBe(true);
-        done();
-      }, true);
+      asCheckedCallback(
+        Promise.resolve(true),
+        function(err, res) {
+          expect(err).toBeFalsy();
+          expect(res).toBe(true);
+          done();
+        },
+        true
+      );
     });
 
     // The callback should terminate the promise chain if any.
@@ -81,11 +89,15 @@ describe('asCallback', function() {
     it('is no-op when binding multiple times', function(done) {
       expect(patchPromise).not.toThrow();
 
-      asCheckedCallback(Promise.resolve(true), function(err, res) {
-        expect(err).toBeFalsy();
-        expect(res).toBe(true);
-        done();
-      }, true);
+      asCheckedCallback(
+        Promise.resolve(true),
+        function(err, res) {
+          expect(err).toBeFalsy();
+          expect(res).toBe(true);
+          done();
+        },
+        true
+      );
     });
 
     it('can be unbound', function() {

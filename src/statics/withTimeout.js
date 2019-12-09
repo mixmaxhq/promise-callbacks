@@ -19,13 +19,16 @@ function withTimeout(promise, delay, message) {
     const error = message instanceof Error ? message : new TimeoutError(message || 'Operation timed out.');
     timeout = setTimeout(reject, delay, error);
   });
-  return Promise.race([promise, timeoutPromise]).then((value) => {
-    clearTimeout(timeout);
-    return value;
-  }, (err) => {
-    clearTimeout(timeout);
-    throw err;
-  });
+  return Promise.race([promise, timeoutPromise]).then(
+    (value) => {
+      clearTimeout(timeout);
+      return value;
+    },
+    (err) => {
+      clearTimeout(timeout);
+      throw err;
+    }
+  );
 }
 
 module.exports = withTimeout;

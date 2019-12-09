@@ -12,7 +12,7 @@ function patchPromise() {
       configurable: true,
       enumerable: false,
       writable: true,
-      value: fn
+      value: fn,
     };
   }
   Object.defineProperties(Promise, props);
@@ -29,7 +29,7 @@ function unpatchPromise() {
 module.exports = {
   patchPromise,
   unpatchPromise,
-  statics: {}
+  statics: {},
 };
 
 Object.assign(module.exports.statics, staticProperties);
