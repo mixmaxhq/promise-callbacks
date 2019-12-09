@@ -35,4 +35,5 @@ exports.immediate = statics.immediate;
 exports.nextTick = statics.nextTick;
 exports.waitOn = statics.waitOn;
 exports.withTimeout = statics.withTimeout;
+exports.TimeoutError = statics.TimeoutError;
 exports.wrapAsync = statics.wrapAsync;
