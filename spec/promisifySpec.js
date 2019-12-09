@@ -12,13 +12,17 @@ describe('promisify', function() {
   });
 
   it('should handle multiple values as an array', async function() {
-    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {variadic: true})();
+    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {
+      variadic: true,
+    })();
     expect(values).toEqual(['v1', 'v2', 'v3']);
   });
 
   it('should handle multiple values as an object', async function() {
-    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {variadic: ['v1', 'v2', 'v3']})();
-    expect(values).toEqual({v1: 'v1', v2: 'v2', v3: 'v3'});
+    const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {
+      variadic: ['v1', 'v2', 'v3'],
+    })();
+    expect(values).toEqual({ v1: 'v1', v2: 'v2', v3: 'v3' });
   });
 
   it('should handle synchronous errors', async function() {
@@ -69,7 +73,7 @@ describe('promisify', function() {
         beepSound: 'boop',
         beep(done) {
           process.nextTick(() => done(null, this.beepSound));
-        }
+        },
       };
 
       const newBeepSound = 'beep';
@@ -91,7 +95,7 @@ describe('promisify', function() {
         },
         noot() {
           return 7;
-        }
+        },
       };
 
       const newBeepSound = 'beep';
@@ -116,7 +120,7 @@ describe('promisify', function() {
         nooter(done) {
           process.nextTick(() => done(null, 7));
         },
-        value: 'hello'
+        value: 'hello',
       };
 
       const orig = Object.assign({}, api);

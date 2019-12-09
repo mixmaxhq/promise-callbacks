@@ -1,3 +1,6 @@
 {
-  "extends": "mixmax/node/spec"
+  "extends": "mixmax/node/spec",
+  "rules": {
+    "no-var": "error"
+  }
 }
