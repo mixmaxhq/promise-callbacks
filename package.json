@@ -26,19 +26,17 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "eslint": ">=3",
-    "eslint-config-mixmax": "^0.6.0",
+    "eslint": "^6.7.2",
+    "eslint-config-mixmax": "^4.2.0",
     "express": "^4.15.2",
     "jasmine": "^2.5.3",
-    "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node",
-    "pre-commit": "^1.2.2"
+    "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node"
   },
   "dependencies": {
-    "object.getownpropertydescriptors": "2.0.3"
+    "@mixmaxhq/prettier-config": "^1.0.0",
+    "object.getownpropertydescriptors": "2.0.3",
+    "prettier": "^1.19.1"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "repository": {
     "type": "git",
     "url": "git+ssh://github.com/mixmaxhq/promise-callbacks.git"
