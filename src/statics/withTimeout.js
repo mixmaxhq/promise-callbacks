@@ -1,5 +1,7 @@
 'use strict';
 
+const TimeoutError = require('./TimeoutError');
+
 /**
  * Return a promise that resolves to the same value as the given promise. If it takes more than the
  * specified delay to do so, the returned promise instead rejects with a timeout error.
@@ -14,7 +16,8 @@ function withTimeout(promise, delay, message) {
   let timeout;
   const timeoutPromise = new Promise((resolve, reject) => {
     // Instantiate the error here to capture a more useful stack trace.
-    const error = message instanceof Error ? message : new Error(message || 'Operation timed out.');
+    const error =
+      message instanceof Error ? message : new TimeoutError(message || 'Operation timed out.');
     timeout = setTimeout(reject, delay, error);
   });
   return Promise.race([promise, timeoutPromise]).then(
