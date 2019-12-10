@@ -1,5 +1,7 @@
 ## Release History
 
+* 3.3.1 With timeout now throws a TimeoutError derived from Error
+
 * 3.3.0 Add callAsync function
 
 * 3.2.2 Actually use explicit exports per #16.
