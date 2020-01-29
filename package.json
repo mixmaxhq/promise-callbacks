@@ -7,10 +7,13 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "test": "jasmine",
-    "lint": "eslint .",
     "ci": "npm run lint && npm test",
-    "example": "node ./example/app.js"
+    "ci:commitlint": "commitlint-jenkins --pr-only",
+    "example": "node ./example/app.js",
+    "lint": "eslint .",
+    "prepublishOnly": "if [ \"$CI\" = '' ]; then node -p 'JSON.parse(process.env.npm_package_config_manualPublishMessage)'; exit 1; fi",
+    "semantic-release": "semantic-release",
+    "test": "jasmine"
   },
   "keywords": [
     "callbacks",
@@ -26,13 +29,18 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/config-conventional": "^8.3.4",
+    "@mixmaxhq/commitlint-jenkins": "^1.4.2",
     "@mixmaxhq/prettier-config": "^1.0.0",
+    "@mixmaxhq/semantic-release-config": "^2.0.0",
+    "cz-conventional-changelog": "^3.1.0",
     "eslint": "^6.7.2",
     "eslint-config-mixmax": "^4.2.0",
     "express": "^4.15.2",
     "jasmine": "^2.5.3",
     "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "semantic-release": "^17.0.1"
   },
   "dependencies": {
     "object.getownpropertydescriptors": "2.0.3"
@@ -40,5 +48,22 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://github.com/mixmaxhq/promise-callbacks.git"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "manualPublishMessage": "This repository is configured to use semantic-release for its releases. Please do not release manually.\n"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "release": {
+    "extends": "@mixmaxhq/semantic-release-config"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
