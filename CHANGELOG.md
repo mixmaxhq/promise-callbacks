@@ -1,3 +1,15 @@
+## [3.4.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.3.1...v3.4.0) (2020-01-29)
+
+
+### Features
+
+* support nextTick in browsers ([d5e6fe3](https://github.com/mixmaxhq/promise-callbacks/commit/d5e6fe39d80620182f0307b9523fdf37b4f3fdee))
+
+
+### Bug Fixes
+
+* expose callback exceptions as uncaught ([2c8cb0f](https://github.com/mixmaxhq/promise-callbacks/commit/2c8cb0fa07454c9d726feac24b83ac167f1ab007))
+
 ## Release History
 
 * 3.3.1 With timeout now throws a TimeoutError derived from Error
