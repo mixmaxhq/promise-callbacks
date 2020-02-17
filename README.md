@@ -230,6 +230,20 @@ Returns a promise that will resolve after the next process tick - analogous to `
 Returns a promise that will reject after the specified timeout, unless the given promise resolves or
 rejects before that timeout.
 
+### `Promise.objectAll(object)`
+
+Resolves the values of the provided object, similar to `Promise.all`. Useful for `Promise.all` invocations that have grown so large in size that it's difficult to easily understand which expressions are associated with which bindings.
+
+```js
+const { status, assignment } = await Promise.objectAll({
+  status: getStatus(),
+
+  sendResult: send(notificationObject),
+
+  assignment: assignReviewer(),
+});
+```
+
 ## Real-world example
 
 `example/app.js` demonstrate these APIs' use in the context of a web server. Do `yarn run example`
