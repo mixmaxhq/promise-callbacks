@@ -1,3 +1,10 @@
+## [3.5.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.4.0...v3.5.0) (2020-02-17)
+
+
+### Features
+
+* implement Promise.objectAll ([693012e](https://github.com/mixmaxhq/promise-callbacks/commit/693012ef99b737963a5c9c627920294fd6c7dfe3))
+
 ## [3.4.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.3.1...v3.4.0) (2020-01-29)
 
 
