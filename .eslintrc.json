@@ -1,5 +1,5 @@
 {
-  "extends": "mixmax/node",
+  "extends": ["mixmax/node/withJest"],
   "rules": {
     "no-var": "error"
   }
