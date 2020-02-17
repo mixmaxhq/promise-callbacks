@@ -1,74 +1,54 @@
 const promisify = require('../src/promisify');
 
-describe('promisify', function() {
-  it('should handle values', async function() {
+describe('promisify', () => {
+  it('should handle values', async () => {
     const value = await promisify((done) => process.nextTick(() => done(null, 'value')))();
     expect(value).toBe('value');
   });
 
-  it('should ignore extra values', async function() {
+  it('should ignore extra values', async () => {
     const value = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')))();
     expect(value).toBe('v1');
   });
 
-  it('should handle multiple values as an array', async function() {
+  it('should handle multiple values as an array', async () => {
     const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {
       variadic: true,
     })();
     expect(values).toEqual(['v1', 'v2', 'v3']);
   });
 
-  it('should handle multiple values as an object', async function() {
+  it('should handle multiple values as an object', async () => {
     const values = await promisify((done) => process.nextTick(() => done(null, 'v1', 'v2', 'v3')), {
       variadic: ['v1', 'v2', 'v3'],
     })();
     expect(values).toEqual({ v1: 'v1', v2: 'v2', v3: 'v3' });
   });
 
-  it('should handle synchronous errors', async function() {
-    let err;
-    try {
-      await promisify(() => {
+  it('should handle synchronous errors', async () =>
+    expect(
+      promisify(() => {
         throw new Error('oops!');
-      })();
+      })()
+    ).rejects.toThrow(new Error('oops!')));
 
-      fail();
-    } catch (e) {
-      err = e;
-    }
+  it('should handle errors', async () =>
+    expect(promisify((done) => process.nextTick(() => done(new Error('hallo'))))()).rejects.toThrow(
+      new Error('hallo')
+    ));
 
-    expect(err).toBeTruthy();
-    expect(err.constructor).toBe(Error);
-    expect(err.message).toBe('oops!');
-  });
-
-  it('should handle errors', async function() {
-    let err;
-    try {
-      await promisify((done) => process.nextTick(() => done(new Error('hallo'))))();
-
-      fail();
-    } catch (e) {
-      err = e;
-    }
-
-    expect(err).toBeTruthy();
-    expect(err.constructor).toBe(Error);
-    expect(err.message).toBe('hallo');
-  });
-
-  it('should support custom promise functions', async function() {
+  it('should support custom promise functions', async () => {
     function ex(done) {
       process.nextTick(() => done(null, 'hello'));
     }
 
     ex[promisify.custom] = async () => 'surprise!';
 
-    expect(await promisify(ex)()).toBe('surprise!');
+    return expect(promisify(ex)()).resolves.toBe('surprise!');
   });
 
-  describe('method', function() {
-    it('should promisify the given method', async function() {
+  describe('method', () => {
+    it('should promisify the given method', async () => {
       const api = {
         beepSound: 'boop',
         beep(done) {
@@ -82,12 +62,12 @@ describe('promisify', function() {
       const beepPromiseAPI = promisify.method(api, 'beep');
 
       expect(api.beep).toBe(origBeep);
-      expect(await beepPromiseAPI()).toBe(newBeepSound);
+      return expect(beepPromiseAPI()).resolves.toBe(newBeepSound);
     });
   });
 
-  describe('methods', function() {
-    it('should promisify the given methods', async function() {
+  describe('methods', () => {
+    it('should promisify the given methods', async () => {
       const api = {
         beepSound: 'boop',
         beep(done) {
@@ -107,12 +87,12 @@ describe('promisify', function() {
       expect(api.beep).toBe(origBeep);
 
       expect(promiseAPI.noot).toBeUndefined();
-      expect(await promiseAPI.beep()).toBe(newBeepSound);
+      return expect(promiseAPI.beep()).resolves.toBe(newBeepSound);
     });
   });
 
-  describe('all', function() {
-    it('should promisify all methods', async function() {
+  describe('all', () => {
+    it('should promisify all methods', async () => {
       const api = {
         beep(done) {
           process.nextTick(() => done(null, 8));
@@ -123,14 +103,14 @@ describe('promisify', function() {
         value: 'hello',
       };
 
-      const orig = Object.assign({}, api);
+      const orig = { ...api };
 
       const promiseAPI = promisify.all(api);
 
       expect(api).toEqual(orig);
 
       expect(promiseAPI.value).toBeUndefined();
-      expect(await Promise.all([promiseAPI.beep(), promiseAPI.nooter()])).toEqual([8, 7]);
+      return expect(Promise.all([promiseAPI.beep(), promiseAPI.nooter()])).resolves.toEqual([8, 7]);
     });
   });
 });

@@ -5,8 +5,9 @@ module.exports = {
   delay: require('./delay'),
   immediate: require('./immediate'),
   nextTick: require('./nextTick'),
-  waitOn: require('./waitOn'),
+  objectAll: require('./objectAll'),
   TimeoutError: require('./TimeoutError'),
+  waitOn: require('./waitOn'),
   withTimeout: require('./withTimeout'),
   wrapAsync: require('./wrapAsync'),
 };

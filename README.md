@@ -62,9 +62,9 @@ It's also possible to achieve the above more succinctly using the `callAsync` fu
 const { callAsync } = require('promise-callbacks');
 
 async function foo() {
-  console.log(await callAsync(respondWithDelay));  
+  console.log(await callAsync(respondWithDelay));
 }
-``` 
+```
 
 ### Variadic arguments
 
@@ -82,16 +82,16 @@ function manyValues(done) {
 }
 
 async function asArray() {
-  const promise = deferred({variadic: true});
+  const promise = deferred({ variadic: true });
   respondWithDelay(promise.defer());
   const [first, second, third] = await promise;
   console.log(`${first} ${second} ${third}`);
 }
 
 async function asObject() {
-  const promise = deferred({variadic: ['first', 'second', 'third']});
+  const promise = deferred({ variadic: ['first', 'second', 'third'] });
   respondWithDelay(promise.defer());
-  const {first, second, third} = await promise;
+  const { first, second, third } = await promise;
   console.log(`${first} ${second} ${third}`);
 }
 ```
@@ -129,7 +129,7 @@ function respondWithDelay(done) {
   setTimeout(() => done(null, 3, 2, 1, 4), 2000);
 }
 
-const respondWithDelayPromised = promisify(respondWithDelay, {variadic: true});
+const respondWithDelayPromised = promisify(respondWithDelay, { variadic: true });
 
 async function foo() {
   console.log(await respondWithDelayPromised());
@@ -155,12 +155,12 @@ readFile('input')
 const readFileAsync = promisify.method(fs, 'readFile');
 
 readFileAsync('input')
-	.then((content) => writeFile('output', content))
-	.catch((err) => console.error('err', err));
+  .then((content) => writeFile('output', content))
+  .catch((err) => console.error('err', err));
 
 // If you know all the methods of the object are asynchronous, use promisify.all:
 const api = {
-  respondWithDelay
+  respondWithDelay,
 };
 
 const promiseAPI = promisify.all(api);
@@ -229,6 +229,20 @@ Returns a promise that will resolve after the next process tick - analogous to `
 
 Returns a promise that will reject after the specified timeout, unless the given promise resolves or
 rejects before that timeout.
+
+### `Promise.objectAll(object)`
+
+Resolves the values of the provided object, similar to `Promise.all`. Useful for `Promise.all` invocations that have grown so large in size that it's difficult to easily understand which expressions are associated with which bindings.
+
+```js
+const { status, assignment } = await Promise.objectAll({
+  status: getStatus(),
+
+  sendResult: send(notificationObject),
+
+  assignment: assignReviewer(),
+});
+```
 
 ## Real-world example
 

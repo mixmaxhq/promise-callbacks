@@ -1,6 +1,5 @@
 'use strict';
 
-const toArray = require('../utils').toArray;
 const callbackBuilder = require('../callbackBuilder');
 
 const sentinel = Object.create(null);
@@ -28,7 +27,7 @@ function wrapAsync(fn, options) {
     let syncErr = sentinel;
     const promise = new Promise((resolve, reject) => {
       const cb = callbackBuilder(resolve, reject, options),
-        args = toArray(arguments);
+        args = Array.from(arguments);
       args.push(cb);
       let res;
       try {
