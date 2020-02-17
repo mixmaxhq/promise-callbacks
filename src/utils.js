@@ -2,10 +2,10 @@
 
 const arraySlice = Array.prototype.slice;
 
-function toArray(arrayLike, offset) {
+function slice(arrayLike, offset) {
   return arraySlice.call(arrayLike, offset);
 }
 
 module.exports = {
-  toArray,
+  slice,
 };

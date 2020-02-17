@@ -1,6 +1,6 @@
 'use strict';
 
-const toArray = require('./utils').toArray;
+const { slice } = require('./utils');
 
 /**
  * Build a callback for the given promise resolve/reject functions.
@@ -31,7 +31,7 @@ function callbackBuilder(resolve, reject, options) {
       }
       resolve(obj);
     } else {
-      resolve(variadic ? toArray(arguments, 1) : value);
+      resolve(variadic ? slice(arguments, 1) : value);
     }
   };
 }

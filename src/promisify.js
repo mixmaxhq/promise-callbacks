@@ -26,7 +26,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 const kCustomPromisifiedSymbol = Symbol.for('util.promisify.custom');
 const getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
 const callbackBuilder = require('./callbackBuilder');
-const toArray = require('./utils').toArray;
 
 /**
  * Promisify the given function.
@@ -60,7 +59,7 @@ function promisify(orig, options) {
   }
 
   function fn() {
-    const args = toArray(arguments);
+    const args = Array.from(arguments);
     return new Promise((resolve, reject) => {
       args.push(callbackBuilder(resolve, reject, options));
       try {
