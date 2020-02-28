@@ -1,3 +1,10 @@
+## [3.6.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.5.0...v3.6.0) (2020-02-28)
+
+
+### Features
+
+* expose objectAll without patching Promise ([3e45be3](https://github.com/mixmaxhq/promise-callbacks/commit/3e45be377dc299797c0e572bbcc643a3cd1701a7))
+
 ## [3.5.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.4.0...v3.5.0) (2020-02-17)
 
 
