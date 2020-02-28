@@ -33,6 +33,7 @@ exports.promisify = promisify;
 exports.delay = statics.delay;
 exports.immediate = statics.immediate;
 exports.nextTick = statics.nextTick;
+exports.objectAll = statics.objectAll;
 exports.waitOn = statics.waitOn;
 exports.withTimeout = statics.withTimeout;
 exports.TimeoutError = statics.TimeoutError;
