@@ -40,7 +40,7 @@
     "eslint-config-mixmax": "^4.8.0",
     "express": "^4.15.2",
     "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node",
-    "jest": "^25.1.0",
+    "jest": "^25.2.1",
     "prettier": "^1.19.1",
     "semantic-release": "^17.0.1"
   },
