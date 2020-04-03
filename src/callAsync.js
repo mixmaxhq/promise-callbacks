@@ -1,6 +1,6 @@
 'use strict';
 
-const deferred = require('./deferred');
+const callbackBuilder = require('./callbackBuilder');
 
 /**
  * Calls the given function and returns a promise that fulfills according to the formers result.
@@ -10,9 +10,7 @@ const deferred = require('./deferred');
  * @return {Promise}
  */
 async function callAsync(fn) {
-  const promise = deferred();
-  fn(promise.defer());
-  return promise;
+  return new Promise((resolve, reject) => fn(callbackBuilder(resolve, reject)));
 }
 
 module.exports = callAsync;
