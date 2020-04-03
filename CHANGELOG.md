@@ -1,3 +1,10 @@
+## [3.7.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.6.0...v3.7.0) (2020-04-03)
+
+
+### Features
+
+* use callbackBuilder directly from callAsync ([2b3068f](https://github.com/mixmaxhq/promise-callbacks/commit/2b3068f06ea96a0eaa8f536b094f3d5e6ca48e04))
+
 ## [3.6.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.5.0...v3.6.0) (2020-02-28)
 
 
