@@ -1,3 +1,10 @@
+### [3.7.1](https://github.com/mixmaxhq/promise-callbacks/compare/v3.7.0...v3.7.1) (2020-04-07)
+
+
+### Performance Improvements
+
+* avoid deoptimized arguments passing ([44f54d1](https://github.com/mixmaxhq/promise-callbacks/commit/44f54d19e995f75fbd0b9c4cd36b35a58df8ec0b)), closes [/github.com/petkaantonov/bluebird/wiki/Optimization-killers#3](https://github.com/mixmaxhq//github.com/petkaantonov/bluebird/wiki/Optimization-killers/issues/3)
+
 ## [3.7.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.6.0...v3.7.0) (2020-04-03)
 
 
