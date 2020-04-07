@@ -1,10 +1,10 @@
 'use strict';
 
-const method = require('./method');
 const static_ = require('./static');
 const callAsync = require('./callAsync');
-const deferred = require('./deferred');
 const defer = require('./defer');
+const deferred = require('./deferred');
+const method = require('./method');
 const promisify = require('./promisify');
 const statics = require('./statics');
 
@@ -22,19 +22,19 @@ function unpatchPromise() {
 // module.exports object definition.
 exports.patchPromise = patchPromise;
 exports.unpatchPromise = unpatchPromise;
+exports.asCallback = statics.asCallback;
 exports.callAsync = callAsync;
-exports.deferred = deferred;
 exports.defer = defer;
-exports.promisify = promisify;
-(exports.promisifyMethod = promisify.method),
-  (exports.promisifyMethods = promisify.methods),
-  (exports.promisifyAll = promisify.all),
-  (exports.asCallback = statics.asCallback);
+exports.deferred = deferred;
 exports.delay = statics.delay;
 exports.immediate = statics.immediate;
 exports.nextTick = statics.nextTick;
 exports.objectAll = statics.objectAll;
+exports.promisify = promisify;
+exports.promisifyAll = promisify.all;
+exports.promisifyMethod = promisify.method;
+exports.promisifyMethods = promisify.methods;
+exports.TimeoutError = statics.TimeoutError;
 exports.waitOn = statics.waitOn;
 exports.withTimeout = statics.withTimeout;
-exports.TimeoutError = statics.TimeoutError;
 exports.wrapAsync = statics.wrapAsync;
