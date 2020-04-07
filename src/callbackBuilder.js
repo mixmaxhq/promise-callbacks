@@ -1,7 +1,5 @@
 'use strict';
 
-const { slice } = require('./utils');
-
 /**
  * Build a callback for the given promise resolve/reject functions.
  *
@@ -30,8 +28,14 @@ function callbackBuilder(resolve, reject, options) {
         obj[variadic[i]] = arguments[i + 1];
       }
       resolve(obj);
+    } else if (variadic) {
+      const args = new Array(arguments.length - 1);
+      for (let i = 0; i < args.length; ++i) {
+        args[i] = arguments[i + 1];
+      }
+      resolve(args);
     } else {
-      resolve(variadic ? slice(arguments, 1) : value);
+      resolve(value);
     }
   };
 }
