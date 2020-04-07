@@ -1,3 +1,10 @@
+## [3.8.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.7.1...v3.8.0) (2020-04-07)
+
+
+### Features
+
+* add Promise.voidAll ([a7a7cc1](https://github.com/mixmaxhq/promise-callbacks/commit/a7a7cc13fee464b51e3f34f083eea76af072d9b2))
+
 ### [3.7.1](https://github.com/mixmaxhq/promise-callbacks/compare/v3.7.0...v3.7.1) (2020-04-07)
 
 
