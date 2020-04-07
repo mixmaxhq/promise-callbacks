@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "prepublishOnly": "if [ \"$CI\" = '' ]; then node -p 'JSON.parse(process.env.npm_package_config_manualPublishMessage)'; exit 1; fi",
     "semantic-release": "semantic-release",
-    "test": "jest"
+    "test": "jest --env node && jest --env jsdom"
   },
   "keywords": [
     "callbacks",

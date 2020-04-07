@@ -244,6 +244,20 @@ const { status, assignment } = await Promise.objectAll({
 });
 ```
 
+### `handleErrorsFrom(promise, emitter)`
+
+Resolves to the value of the `promise`. If the `emitter` emits an `error` event before `promise`
+fulfillment, rejects with the error from that event.
+
+```js
+async function updateCache(redisClient) {
+  // ...
+}
+
+// If the redisClient runs into an error, the await
+await handleErrorsFrom(updateCache(redisClient), redisClient);
+```
+
 ## Real-world example
 
 `example/app.js` demonstrate these APIs' use in the context of a web server. Do `yarn run example`
