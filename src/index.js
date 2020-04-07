@@ -35,6 +35,7 @@ exports.promisifyAll = promisify.all;
 exports.promisifyMethod = promisify.method;
 exports.promisifyMethods = promisify.methods;
 exports.TimeoutError = statics.TimeoutError;
+exports.voidAll = statics.voidAll;
 exports.waitOn = statics.waitOn;
 exports.withTimeout = statics.withTimeout;
 exports.wrapAsync = statics.wrapAsync;
