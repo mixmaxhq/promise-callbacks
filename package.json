@@ -45,7 +45,7 @@
     "semantic-release": "^17.0.4"
   },
   "dependencies": {
-    "object.getownpropertydescriptors": "2.0.3"
+    "object.getownpropertydescriptors": "2.1.0"
   },
   "repository": {
     "type": "git",
