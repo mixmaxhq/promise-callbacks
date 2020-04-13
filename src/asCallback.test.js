@@ -1,9 +1,4 @@
-'use strict';
-
-const pc = require('..');
-const asCallback = pc.asCallback;
-const patchPromise = pc.patchPromise;
-const unpatchPromise = pc.unpatchPromise;
+import { asCallback, patchPromise, unpatchPromise } from '..';
 
 /**
  * Wrap the asCallback function with a check that ensures the callback is never called twice.

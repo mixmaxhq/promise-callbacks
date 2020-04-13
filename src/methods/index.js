@@ -1,3 +1,4 @@
-'use strict';
+import asCallback from './asCallback';
+import timeout from './timeout';
 
-module.exports = [require('./asCallback'), require('./timeout')];
+export default [asCallback, timeout];

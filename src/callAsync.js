@@ -1,6 +1,4 @@
-'use strict';
-
-const callbackBuilder = require('./callbackBuilder');
+import callbackBuilder from './callbackBuilder';
 
 /**
  * Calls the given function and returns a promise that fulfills according to the formers result.
@@ -9,8 +7,6 @@ const callbackBuilder = require('./callbackBuilder');
  * @param {function(callback)} fn A function that takes a Node style callback as its argument.
  * @return {Promise}
  */
-async function callAsync(fn) {
+export default function callAsync(fn) {
   return new Promise((resolve, reject) => fn(callbackBuilder(resolve, reject)));
 }
-
-module.exports = callAsync;

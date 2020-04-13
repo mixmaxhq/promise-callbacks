@@ -1,6 +1,4 @@
-'use strict';
-
-const callbackBuilder = require('../callbackBuilder');
+import callbackBuilder from '../callbackBuilder';
 
 const sentinel = Object.create(null);
 
@@ -13,7 +11,7 @@ const sentinel = Object.create(null);
  * @param {Boolean=} options.catchExceptions Whether to catch synchronous exceptions, defaults to true.
  * @return {Function: Promise} A promise-returning variant of the function.
  */
-function wrapAsync(fn, options) {
+export default function wrapAsync(fn, options) {
   let catchExceptions = options && options.catchExceptions;
   if (typeof catchExceptions !== 'boolean') {
     catchExceptions = true;
@@ -55,4 +53,3 @@ function wrapAsync(fn, options) {
   };
 }
 
-module.exports = wrapAsync;

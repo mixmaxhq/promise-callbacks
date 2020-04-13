@@ -1,10 +1,10 @@
-'use strict';
+import * as staticProperties from './statics/index';
 
-const staticProperties = require('./statics');
-
-function patchPromise() {
+export function patchPromise() {
   const props = {};
-  for (const [fnName, fn] of Object.entries(staticProperties)) {
+  for (const entry of Object.entries(staticProperties)) {
+    const fnName = entry[0],
+      fn = entry[1];
     if (Promise[fnName] && Promise[fnName] !== fn) {
       throw new Error(`Promise already defines ${fnName}.`);
     }
@@ -18,18 +18,14 @@ function patchPromise() {
   Object.defineProperties(Promise, props);
 }
 
-function unpatchPromise() {
-  for (const [fnName, fn] of Object.entries(staticProperties)) {
+export function unpatchPromise() {
+  for (const entry of Object.entries(staticProperties)) {
+    const fnName = entry[0],
+      fn = entry[1];
     if (Promise[fnName] === fn) {
       delete Promise[fnName];
     }
   }
 }
 
-module.exports = {
-  patchPromise,
-  unpatchPromise,
-  statics: {},
-};
-
-Object.assign(module.exports.statics, staticProperties);
+export const statics = { ...staticProperties };

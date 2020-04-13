@@ -1,13 +1,11 @@
-'use strict';
-
-const callbackBuilder = require('./callbackBuilder');
+import callbackBuilder from './callbackBuilder';
 
 /**
  * Create a capture context, similar to sync but without the global state.
  *
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  */
-function deferred(options) {
+export default function deferred(options) {
   let args = null;
   const promise = new Promise((resolve, reject) => (args = [resolve, reject, options]));
   promise.defer = function defer() {
@@ -19,4 +17,3 @@ function deferred(options) {
   return promise;
 }
 
-module.exports = deferred;

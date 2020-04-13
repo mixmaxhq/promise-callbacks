@@ -1,13 +1,18 @@
-const withTimeout = require('../src/statics/withTimeout');
-const TimeoutError = require('../src/statics/TimeoutError');
+import withTimeout from '../src/statics/withTimeout';
+import TimeoutError from '../src/statics/TimeoutError';
 
 describe('withTimeout', () => {
   it('should reject the promise with a Timeout Error if the promise does not resolve quickly', async () => {
-    const slowResolve = new Promise((resolve) => setTimeout(resolve, 1000));
+    let timer;
+    const slowResolve = new Promise((resolve) => (timer = setTimeout(resolve, 1000)));
 
-    await expect(withTimeout(slowResolve, 1, 'The promise never resolved')).rejects.toThrow(
-      new TimeoutError('The promise never resolved')
-    );
+    try {
+      await expect(withTimeout(slowResolve, 1, 'The promise never resolved')).rejects.toThrow(
+        new TimeoutError('The promise never resolved')
+      );
+    } finally {
+      clearTimeout(timer);
+    }
   });
 
   it('should resolve if with the result of the promise if it is in time', async () => {

@@ -1,6 +1,4 @@
-'use strict';
-
-const withTimeout = require('../statics/withTimeout');
+import withTimeout from '../statics/withTimeout';
 
 /**
  * The same promise, but with a timeout.
@@ -11,8 +9,6 @@ const withTimeout = require('../statics/withTimeout');
  *   times out.
  * @return {Promise<*>} The promise that times out.
  */
-function timeout(delay, message) {
+export default function timeout(delay, message) {
   return withTimeout(this, delay, message);
 }
-
-module.exports = timeout;

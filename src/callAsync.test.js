@@ -1,4 +1,4 @@
-const callAsync = require('../src/callAsync');
+import callAsync from '../src/callAsync';
 
 describe('callAsync', () => {
   it('lets you handle callback results using promises', async () =>

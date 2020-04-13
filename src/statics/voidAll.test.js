@@ -1,7 +1,5 @@
-'use strict';
-
-const voidAll = require('../../src/statics/voidAll'),
-  immediate = require('../../src/statics/immediate');
+import voidAll from '../../src/statics/voidAll';
+import immediate from '../../src/statics/immediate';
 
 describe('voidAll', () => {
   it('should reject non-iterable parameters', () =>
@@ -47,8 +45,8 @@ describe('voidAll', () => {
     ).rejects.toThrow(new Error('dead'));
   });
 
-  it('should reject iterable errors', async () => {
-    await expect(
+  it('should reject iterable errors', () =>
+    expect(
       voidAll(
         (function* produce() {
           yield Promise.resolve('abc');
@@ -56,6 +54,5 @@ describe('voidAll', () => {
           throw new Error('dead');
         })()
       )
-    ).rejects.toThrow(new Error('dead'));
-  });
+    ).rejects.toThrow(new Error('dead')));
 });

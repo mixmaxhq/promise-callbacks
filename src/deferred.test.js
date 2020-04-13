@@ -1,4 +1,4 @@
-const deferred = require('../src/deferred');
+import deferred from '../src/deferred';
 
 // The functions below use `await` just to provide complete examples of how `sync`
 // is intended to be used. But we're not testing how `await` works per se--we could

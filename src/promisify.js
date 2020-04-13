@@ -1,5 +1,3 @@
-'use strict';
-
 /***************************************************************************************************
 
 The promisify implementation found in this file is derived from the implementation in Node.js. Its
@@ -23,9 +21,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ***************************************************************************************************/
 
+import getOwnPropertyDescriptors from 'object.getownpropertydescriptors';
+import callbackBuilder from './callbackBuilder';
+
 const kCustomPromisifiedSymbol = Symbol.for('util.promisify.custom');
-const getOwnPropertyDescriptors = require('object.getownpropertydescriptors');
-const callbackBuilder = require('./callbackBuilder');
 
 /**
  * Promisify the given function.
@@ -105,7 +104,7 @@ function promisifyMethod(obj, methodName, options) {
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  * @return {Object} The promisified object.
  */
-function promisifyMethods(obj, methodNames, options) {
+export function promisifyMethods(obj, methodNames, options) {
   if (!obj) {
     // This object could be anything, including a function, a real object, or an array.
     throw new TypeError('promisify.methods requires a truthy value');
@@ -127,7 +126,7 @@ function promisifyMethods(obj, methodNames, options) {
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  * @return {Object} The promisified object.
  */
-function promisifyAll(obj, options) {
+export function promisifyAll(obj, options) {
   if (!obj) {
     // This object could be anything, including a function, a real object, or an array.
     throw new TypeError('promisify.all requires a truthy value');
@@ -152,4 +151,10 @@ promisify.methods = promisifyMethods;
 promisify.promisifyAll = promisifyAll;
 promisify.promisifyMethods = promisifyMethods;
 
-module.exports = promisify;
+export default promisify;
+export {
+  kCustomPromisifiedSymbol as custom,
+  promisifyAll as all,
+  promisifyMethod as method,
+  promisifyMethods as methods,
+};

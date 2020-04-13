@@ -1,6 +1,6 @@
-'use strict';
-
-const methods = require('./methods');
+import asCallback from './methods/asCallback';
+import timeout from './methods/timeout';
+const methods = [asCallback, timeout];
 
 /**
  * Patches the global `Promise` built-in to define `asCallback` and others as instance methods,
@@ -10,7 +10,7 @@ const methods = require('./methods');
  *
  * @throws {Error} If `Promise` already defines one or more of the instance methods.
  */
-function patchPromise() {
+export function patchPromise() {
   const props = {};
   for (const method of methods) {
     if (Promise.prototype[method.name] && Promise.prototype[method.name] !== method) {
@@ -31,15 +31,10 @@ function patchPromise() {
  *
  * A no-op if `patchPromise` had not been called.
  */
-function unpatchPromise() {
+export function unpatchPromise() {
   for (const method of methods) {
     if (Promise.prototype[method.name] === method) {
       delete Promise.prototype[method.name];
     }
   }
 }
-
-module.exports = {
-  patchPromise,
-  unpatchPromise,
-};

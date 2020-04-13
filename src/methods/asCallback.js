@@ -1,6 +1,4 @@
-'use strict';
-
-const asCb = require('../statics/asCallback');
+import asCb from '../statics/asCallback';
 
 /**
  * Calls the specified callback with the result of the promise.
@@ -11,8 +9,6 @@ const asCb = require('../statics/asCallback');
  * @param {Promise} promise
  * @param {Function<Err, Any>} cb - An errback.
  */
-function asCallback(cb) {
+export default function asCallback(cb) {
   asCb(this, cb);
 }
-
-module.exports = asCallback;
