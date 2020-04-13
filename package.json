@@ -13,6 +13,7 @@
     "example": "node ./example/app.js",
     "lint": "eslint .",
     "prepublishOnly": "npm run build && if [ \"$CI\" = '' ]; then node -p 'JSON.parse(process.env.npm_package_config_manualPublishMessage)'; exit 1; fi",
+    "pretest": "npm run build",
     "semantic-release": "semantic-release",
     "test": "jest --env jsdom && jest --env node"
   },
