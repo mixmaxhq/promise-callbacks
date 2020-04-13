@@ -1,6 +1,4 @@
-'use strict';
-
-const TimeoutError = require('./TimeoutError');
+import TimeoutError from './TimeoutError';
 
 /**
  * Return a promise that resolves to the same value as the given promise. If it takes more than the
@@ -12,7 +10,7 @@ const TimeoutError = require('./TimeoutError');
  *   times out.
  * @return {Promise<*>} The promise that times out.
  */
-function withTimeout(promise, delay, message) {
+export default function withTimeout(promise, delay, message) {
   let timeout;
   const timeoutPromise = new Promise((resolve, reject) => {
     // Instantiate the error here to capture a more useful stack trace.
@@ -31,5 +29,3 @@ function withTimeout(promise, delay, message) {
     }
   );
 }
-
-module.exports = withTimeout;

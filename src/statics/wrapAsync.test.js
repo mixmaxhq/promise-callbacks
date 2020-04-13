@@ -1,6 +1,4 @@
-'use strict';
-
-const wrapAsync = require('../../src/statics/wrapAsync');
+import wrapAsync from '../../src/statics/wrapAsync';
 
 describe('wrapAsync', () => {
   it('should handle the callback with synchronous errors', () => {

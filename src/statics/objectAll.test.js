@@ -1,7 +1,5 @@
-'use strict';
-
-const objectAll = require('../../src/statics/objectAll'),
-  nextTick = require('../../src/statics/nextTick');
+import objectAll from '../../src/statics/objectAll';
+import nextTick from '../../src/statics/nextTick';
 
 describe('objectAll', () => {
   it('should reject non-object parameters', () => expect(objectAll()).rejects.toThrow(/object/));

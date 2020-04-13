@@ -1,8 +1,6 @@
-'use strict';
+import { EventEmitter as Emitter } from 'events';
 
-const Emitter = require('events').EventEmitter;
-
-const waitOn = require('../../src/statics/waitOn');
+import waitOn from '../../src/statics/waitOn';
 
 describe('waitOn', () => {
   let emitter;

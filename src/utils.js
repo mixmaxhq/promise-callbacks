@@ -1,6 +1,4 @@
-'use strict';
-
-const fromEntries =
+export const fromEntries =
   Object.fromEntries ||
   function fromEntries(entries) {
     const obj = {};
@@ -9,7 +7,3 @@ const fromEntries =
     }
     return obj;
   };
-
-module.exports = {
-  fromEntries,
-};

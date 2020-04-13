@@ -1,9 +1,7 @@
-'use strict';
-
 /**
  * Like Promise.all, but without examining or collecting the resolved values from the Promises.
  */
-function voidAll(iter) {
+export default function voidAll(iter) {
   return new Promise((resolve, reject) => {
     let n = 0,
       total = 0,
@@ -27,5 +25,3 @@ function voidAll(iter) {
     }
   });
 }
-
-module.exports = voidAll;

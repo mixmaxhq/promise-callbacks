@@ -1,41 +1,19 @@
-'use strict';
+import * as static_ from './static';
+import * as method from './method';
 
-const static_ = require('./static');
-const callAsync = require('./callAsync');
-const defer = require('./defer');
-const deferred = require('./deferred');
-const method = require('./method');
-const promisify = require('./promisify');
-const statics = require('./statics');
-
-function patchPromise() {
+export function patchPromise() {
   static_.patchPromise();
   method.patchPromise();
 }
 
-function unpatchPromise() {
+export function unpatchPromise() {
   static_.unpatchPromise();
   method.unpatchPromise();
 }
 
-// For some reason, rollup-plugin-commonjs wants this form instead of one embedded in the
-// module.exports object definition.
-exports.patchPromise = patchPromise;
-exports.unpatchPromise = unpatchPromise;
-exports.asCallback = statics.asCallback;
-exports.callAsync = callAsync;
-exports.defer = defer;
-exports.deferred = deferred;
-exports.delay = statics.delay;
-exports.immediate = statics.immediate;
-exports.nextTick = statics.nextTick;
-exports.objectAll = statics.objectAll;
-exports.promisify = promisify;
-exports.promisifyAll = promisify.all;
-exports.promisifyMethod = promisify.method;
-exports.promisifyMethods = promisify.methods;
-exports.TimeoutError = statics.TimeoutError;
-exports.voidAll = statics.voidAll;
-exports.waitOn = statics.waitOn;
-exports.withTimeout = statics.withTimeout;
-exports.wrapAsync = statics.wrapAsync;
+export * from './statics/index';
+export { default as callAsync } from './callAsync';
+export { default as defer } from './defer';
+export { default as deferred } from './deferred';
+export { default as promisify } from './promisify';
+export { promisifyAll, promisifyMethods, method as promisifyMethod } from './promisify';

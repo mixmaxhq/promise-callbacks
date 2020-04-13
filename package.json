@@ -5,16 +5,21 @@
   "engines": {
     "node": ">=6.9.0"
   },
-  "main": "src/index.js",
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "rollup -c",
     "ci": "npm run lint && npm test",
     "ci:commitlint": "commitlint-jenkins --pr-only",
     "example": "node ./example/app.js",
     "lint": "eslint .",
-    "prepublishOnly": "if [ \"$CI\" = '' ]; then node -p 'JSON.parse(process.env.npm_package_config_manualPublishMessage)'; exit 1; fi",
+    "prepublishOnly": "npm run build && if [ \"$CI\" = '' ]; then node -p 'JSON.parse(process.env.npm_package_config_manualPublishMessage)'; exit 1; fi",
+    "pretest": "npm run build",
     "semantic-release": "semantic-release",
-    "test": "jest"
+    "test": "jest --env jsdom && jest --env node"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "callbacks",
     "promises",
@@ -29,6 +34,9 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@mixmaxhq/commitlint-jenkins": "^1.4.4",
@@ -37,14 +45,16 @@
     "@mixmaxhq/semantic-release-config": "^2.0.0",
     "cz-conventional-changelog": "^3.1.0",
     "eslint": "^6.8.0",
-    "eslint-config-mixmax": "^4.9.0",
+    "eslint-config-mixmax": "^4.10.0",
     "express": "^4.17.1",
-    "jasmine-promises": "github:mixmaxhq/jasmine-promises#working_in_node",
     "jest": "^25.2.7",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.4",
+    "rollup": "^2.6.0",
+    "rollup-plugin-babel": "^4.4.0",
     "semantic-release": "^17.0.4"
   },
   "dependencies": {
+    "@babel/runtime": "^7.9.2",
     "object.getownpropertydescriptors": "2.1.0"
   },
   "repository": {

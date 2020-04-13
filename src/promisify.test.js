@@ -1,4 +1,4 @@
-const promisify = require('../src/promisify');
+import promisify from '../src/promisify';
 
 describe('promisify', () => {
   it('should handle values', async () => {

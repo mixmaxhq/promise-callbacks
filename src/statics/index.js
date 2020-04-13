@@ -1,14 +1,10 @@
-'use strict';
-
-module.exports = {
-  asCallback: require('./asCallback'),
-  delay: require('./delay'),
-  immediate: require('./immediate'),
-  nextTick: require('./nextTick'),
-  objectAll: require('./objectAll'),
-  TimeoutError: require('./TimeoutError'),
-  voidAll: require('./voidAll'),
-  waitOn: require('./waitOn'),
-  withTimeout: require('./withTimeout'),
-  wrapAsync: require('./wrapAsync'),
-};
+export { default as asCallback } from './asCallback';
+export { default as delay } from './delay';
+export { default as immediate } from './immediate';
+export { default as nextTick } from './nextTick';
+export { default as objectAll } from './objectAll';
+export { default as TimeoutError } from './TimeoutError';
+export { default as voidAll } from './voidAll';
+export { default as waitOn } from './waitOn';
+export { default as withTimeout } from './withTimeout';
+export { default as wrapAsync } from './wrapAsync';

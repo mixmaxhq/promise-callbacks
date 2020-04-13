@@ -1,11 +1,9 @@
-'use strict';
-
 /**
  * Build a callback for the given promise resolve/reject functions.
  *
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  */
-function callbackBuilder(resolve, reject, options) {
+export default function callbackBuilder(resolve, reject, options) {
   let variadic;
   if (options) {
     variadic = options.variadic;
@@ -39,5 +37,3 @@ function callbackBuilder(resolve, reject, options) {
     }
   };
 }
-
-module.exports = callbackBuilder;

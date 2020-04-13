@@ -1,6 +1,4 @@
-'use strict';
-
-const { fromEntries } = require('../utils');
+import { fromEntries } from '../utils';
 
 /**
  * Promise.all but for objects instead of arrays.
@@ -8,7 +6,7 @@ const { fromEntries } = require('../utils');
  * @param {Object<string, * | Promise<*>>} object
  * @return {Promise<Object<string, *>>} The object, with its values resolved.
  */
-function objectAll(object) {
+export default function objectAll(object) {
   if (!object || typeof object !== 'object') {
     return Promise.reject(new TypeError('objectAll requires an object'));
   }
@@ -20,5 +18,3 @@ function objectAll(object) {
   }
   return Promise.all(entries).then(fromEntries);
 }
-
-module.exports = objectAll;

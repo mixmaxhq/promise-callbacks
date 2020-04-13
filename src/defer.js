@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Create a Defer object that supports the resolve and reject methods that would otherwise be
  * provided to the function given to Promise. Also hosts the promise field which contains the
@@ -14,8 +12,6 @@ class Defer {
   }
 }
 
-function defer() {
+export default function defer() {
   return new Defer();
 }
-
-module.exports = defer;
