@@ -14,31 +14,31 @@ describe('deferred', () => {
     await expect(promise).rejects.toThrow(new Error('boo'));
   });
 
-  it('lets you handle callback results using promises', async function() {
+  it('lets you handle callback results using promises', async function () {
     const promise = deferred();
     process.nextTick(promise.defer(), null, 'hello');
     await expect(promise).resolves.toBe('hello');
   });
 
-  it('should ignore extra values', async function() {
+  it('should ignore extra values', async function () {
     const promise = deferred();
     process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
     await expect(promise).resolves.toBe('v1');
   });
 
-  it('should handle multiple values as an array', async function() {
+  it('should handle multiple values as an array', async function () {
     const promise = deferred({ variadic: true });
     process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
     await expect(promise).resolves.toEqual(['v1', 'v2', 'v3']);
   });
 
-  it('should handle multiple values as an object', async function() {
+  it('should handle multiple values as an object', async function () {
     const promise = deferred({ variadic: ['v1', 'v2', 'v3'] });
     process.nextTick(promise.defer(), null, 'v1', 'v2', 'v3');
     await expect(promise).resolves.toEqual({ v1: 'v1', v2: 'v2', v3: 'v3' });
   });
 
-  it('throws if you call `defer` twice', function() {
+  it('throws if you call `defer` twice', function () {
     const promise = deferred();
     promise.defer();
     expect(() => {
@@ -46,7 +46,7 @@ describe('deferred', () => {
     }).toThrow();
   });
 
-  it('throws if you call the callback twice', function() {
+  it('throws if you call the callback twice', function () {
     const promise = deferred();
     const callback = promise.defer();
     expect(() => {

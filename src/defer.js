@@ -15,4 +15,3 @@ class Defer {
 export default function defer() {
   return new Defer();
 }
-

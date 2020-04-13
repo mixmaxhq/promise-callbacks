@@ -29,4 +29,3 @@ export default function withTimeout(promise, delay, message) {
     }
   );
 }
-

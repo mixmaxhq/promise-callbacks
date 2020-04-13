@@ -52,4 +52,3 @@ export default function wrapAsync(fn, options) {
     return promise;
   };
 }
-
