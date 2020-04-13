@@ -30,7 +30,7 @@ export default {
         [
           '@babel/preset-env',
           {
-            exclude: ['@babel/plugin-transform-classes', '@babel/plugin-transform-block-scoping'],
+            exclude: ['@babel/plugin-transform-classes'],
             targets: { node: '4.0' },
           },
         ],
