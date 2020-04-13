@@ -1,3 +1,10 @@
+### [3.8.1](https://github.com/mixmaxhq/promise-callbacks/compare/v3.8.0...v3.8.1) (2020-04-13)
+
+
+### Bug Fixes
+
+* support Node 4.0 environments ([#57](https://github.com/mixmaxhq/promise-callbacks/issues/57)) ([4b298f8](https://github.com/mixmaxhq/promise-callbacks/commit/4b298f83fb10ac94c264adf4367ede11d0399a25))
+
 ## [3.8.0](https://github.com/mixmaxhq/promise-callbacks/compare/v3.7.1...v3.8.0) (2020-04-07)
 
 
