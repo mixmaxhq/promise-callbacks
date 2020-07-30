@@ -9,6 +9,9 @@ const tick = typeof process === 'object' ? process.nextTick : (fn) => setTimeout
  * @param {Function<Err, Any>} cb - An errback.
  */
 export default function asCallback(promise, cb) {
+  if (typeof cb !== 'function') {
+    throw new TypeError('callback must be a function');
+  }
   const callback = (...args) => tick(() => cb(...args));
   promise.then((res) => callback(null, res), callback);
 }
