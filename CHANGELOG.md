@@ -1,3 +1,10 @@
+### [3.8.2](https://github.com/mixmaxhq/promise-callbacks/compare/v3.8.1...v3.8.2) (2020-07-30)
+
+
+### Bug Fixes
+
+* throw error when no callback provided ([#155](https://github.com/mixmaxhq/promise-callbacks/issues/155)) ([20bfc77](https://github.com/mixmaxhq/promise-callbacks/commit/20bfc77668939668103af674d1199f3fb1c1a3dc))
+
 ### [3.8.1](https://github.com/mixmaxhq/promise-callbacks/compare/v3.8.0...v3.8.1) (2020-04-13)
 
 
