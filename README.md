@@ -252,3 +252,9 @@ to start it.
 ## Shout-outs
 
 `asCallback` is inspired by [Bluebird](http://bluebirdjs.com/docs/api/ascallback.html).
+
+## Publishing a new version
+
+```
+GH_TOKEN=xxx npx semantic-release --no-ci
+```
