@@ -6,16 +6,18 @@
     "node": ">=6.9.0"
   },
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c",
-    "ci": "npm run lint && npm test",
+    "build": "rollup -c && tsc -p tsconfig.build.json",
+    "ci": "npm run lint && npm run typecheck && npm test",
     "ci:commitlint": "commitlint-jenkins --pr-only",
     "example": "node ./example/app.js",
-    "lint": "eslint .",
+    "lint": "eslint --ext .js,.ts .",
     "prepublishOnly": "npm run build && if [ \"$CI\" = '' ]; then node -p 'JSON.parse(process.env.npm_package_config_manualPublishMessage)'; exit 1; fi",
     "pretest": "npm run build",
     "semantic-release": "semantic-release",
-    "test": "jest --env jsdom && jest --env node"
+    "test": "jest --config ./jest.config.js",
+    "typecheck": "tsc --noEmit"
   },
   "files": [
     "dist"
@@ -37,21 +39,26 @@
     "@babel/core": "^7.9.0",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@mixmaxhq/commitlint-jenkins": "^1.4.4",
     "@mixmaxhq/git-hooks": "^1.2.0",
     "@mixmaxhq/prettier-config": "^1.0.0",
     "@mixmaxhq/semantic-release-config": "^2.0.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^6.8.0",
     "eslint-config-mixmax": "^4.10.0",
     "express": "^4.17.1",
     "jest": "^25.2.7",
     "prettier": "^2.2.1",
-    "rollup": "^2.6.0",
+    "rollup": "^2.78.0",
     "rollup-plugin-babel": "^4.4.0",
-    "semantic-release": "^17.2.3"
+    "semantic-release": "^17.2.3",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
     "@babel/runtime": "^7.9.2",
