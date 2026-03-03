@@ -12,7 +12,7 @@
     "ci": "npm run lint && npm run typecheck && npm test",
     "ci:commitlint": "commitlint-jenkins --pr-only",
     "example": "node ./example/app.js",
-    "lint": "eslint .",
+    "lint": "eslint --ext .js .",
     "prepublishOnly": "npm run build && if [ \"$CI\" = '' ]; then node -p 'JSON.parse(process.env.npm_package_config_manualPublishMessage)'; exit 1; fi",
     "pretest": "npm run build",
     "semantic-release": "semantic-release",
