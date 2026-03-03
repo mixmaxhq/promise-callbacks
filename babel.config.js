@@ -1,5 +1,8 @@
-const presetTypescript = require('@babel/preset-typescript').default;
-const transformModulesCommonjs = require('@babel/plugin-transform-modules-commonjs').default;
+const presetTypescriptModule = require('@babel/preset-typescript');
+const transformModulesCommonjsModule = require('@babel/plugin-transform-modules-commonjs');
+const presetTypescript = presetTypescriptModule.default || presetTypescriptModule;
+const transformModulesCommonjs =
+  transformModulesCommonjsModule.default || transformModulesCommonjsModule;
 
 module.exports = (api) => ({
   presets: [presetTypescript],

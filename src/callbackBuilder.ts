@@ -13,7 +13,11 @@ export interface CallbackOptions {
 type ResolveFn = (value?: unknown) => void;
 type RejectFn = (reason?: unknown) => void;
 
-export default function callbackBuilder(resolve: ResolveFn, reject: RejectFn, options?: CallbackOptions) {
+export default function callbackBuilder(
+  resolve: ResolveFn,
+  reject: RejectFn,
+  options?: CallbackOptions
+) {
   let variadic;
   if (options) {
     variadic = options.variadic;

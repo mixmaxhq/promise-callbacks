@@ -1,5 +1,6 @@
 import callbackBuilder from './callbackBuilder';
-import type { CallbackOptions } from './callbackBuilder';
+
+type CallbackOptions = Parameters<typeof callbackBuilder>[2];
 
 /**
  * Create a capture context, similar to sync but without the global state.
@@ -14,13 +15,11 @@ export interface DeferredPromise<T = unknown> extends Promise<T> {
 
 export default function deferred<T = unknown>(options?: CallbackOptions): DeferredPromise<T> {
   let args:
-    | [
-        (value: unknown) => void,
-        (reason?: unknown) => void,
-        CallbackOptions | undefined,
-      ]
+    | [(value: unknown) => void, (reason?: unknown) => void, CallbackOptions | undefined]
     | null = null;
-  const promise = new Promise((resolve, reject) => (args = [resolve, reject, options])) as DeferredPromise<T>;
+  const promise = new Promise(
+    (resolve, reject) => (args = [resolve, reject, options])
+  ) as DeferredPromise<T>;
   promise.defer = function defer() {
     if (!args) throw new Error('defer has already been called');
     const callback = callbackBuilder(args[0], args[1], args[2]);
