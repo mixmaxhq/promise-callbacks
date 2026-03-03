@@ -12,7 +12,7 @@ export default function objectAll(object) {
   }
   const entries = [];
   for (const key in object) {
-    if (hasOwnProperty.call(object, key)) {
+    if (Object.prototype.hasOwnProperty.call(object, key)) {
       entries.push(Promise.resolve(object[key]).then((resolved) => [key, resolved]));
     }
   }

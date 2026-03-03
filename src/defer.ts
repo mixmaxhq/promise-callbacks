@@ -3,7 +3,11 @@
  * provided to the function given to Promise. Also hosts the promise field which contains the
  * corresponding Promise object.
  */
-class Defer {
+class Defer<T = unknown> {
+  promise: Promise<T>;
+  resolve!: (value: T | PromiseLike<T>) => void;
+  reject!: (reason?: unknown) => void;
+
   constructor() {
     this.promise = new Promise((resolve, reject) => {
       this.resolve = resolve;
@@ -12,6 +16,6 @@ class Defer {
   }
 }
 
-export default function defer() {
-  return new Defer();
+export default function defer<T = unknown>(): Defer<T> {
+  return new Defer<T>();
 }

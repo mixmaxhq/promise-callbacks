@@ -7,6 +7,9 @@ import callbackBuilder from './callbackBuilder';
  * @param {function(callback)} fn A function that takes a Node style callback as its argument.
  * @return {Promise}
  */
-export default function callAsync(fn) {
+type NodeStyleCallback<T> = (err: unknown, value?: T, ...rest: unknown[]) => void;
+type AsyncFunction<T> = (cb: NodeStyleCallback<T>) => void;
+
+export default function callAsync<T = unknown>(fn: AsyncFunction<T>): Promise<T> {
   return new Promise((resolve, reject) => fn(callbackBuilder(resolve, reject)));
 }

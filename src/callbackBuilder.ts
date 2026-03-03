@@ -3,7 +3,17 @@
  *
  * @param {Boolean|String[]} options.variadic See the documentation for promisify.
  */
-export default function callbackBuilder(resolve, reject, options) {
+export type VariadicOption = boolean | string[];
+
+export interface CallbackOptions {
+  variadic?: VariadicOption;
+  catchExceptions?: boolean;
+}
+
+type ResolveFn = (value?: unknown) => void;
+type RejectFn = (reason?: unknown) => void;
+
+export default function callbackBuilder(resolve: ResolveFn, reject: RejectFn, options?: CallbackOptions) {
   let variadic;
   if (options) {
     variadic = options.variadic;
@@ -11,7 +21,7 @@ export default function callbackBuilder(resolve, reject, options) {
 
   let called = false;
 
-  return function callback(err, value) {
+  return function callback(err: unknown, value: unknown) {
     if (called) {
       throw new Error('the deferred callback has already been called');
     }

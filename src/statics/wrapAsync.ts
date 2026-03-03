@@ -38,7 +38,7 @@ export default function wrapAsync(fn, options) {
 
           // Resolve to avoid an unhandled rejection if the function called the callback before
           // throwing the synchronous exception.
-          resolve();
+          resolve(undefined);
         }
         return;
       }
